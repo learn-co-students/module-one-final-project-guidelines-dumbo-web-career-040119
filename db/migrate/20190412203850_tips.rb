@@ -4,7 +4,6 @@ class Tips < ActiveRecord::Migration[5.0]
       t.string :type
       t.string :content
       t.boolean :experience_level
-      t.timestamps
     end
   end
 end

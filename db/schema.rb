@@ -13,18 +13,18 @@
 ActiveRecord::Schema.define(version: 20190412204247) do
 
   create_table "directories", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "tip_id"
-    t.integer "stars"
-    t.string  "comment"
+    t.integer  "user_id"
+    t.integer  "tip_id"
+    t.string   "label"
+    t.string   "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tips", force: :cascade do |t|
-    t.string   "type"
-    t.string   "content"
-    t.boolean  "experience_level"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.string  "type"
+    t.string  "content"
+    t.boolean "experience_level"
   end
 
   create_table "users", force: :cascade do |t|
