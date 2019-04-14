@@ -22,7 +22,9 @@ ActiveRecord::Schema.define(version: 20190412204247) do
   end
 
   create_table "tips", force: :cascade do |t|
-    t.string  "type"
+    t.string  "name"
+    t.string  "category"
+    t.string  "title"
     t.string  "content"
     t.boolean "experience_level"
   end
@@ -32,6 +34,8 @@ ActiveRecord::Schema.define(version: 20190412204247) do
     t.string   "password"
     t.string   "email"
     t.boolean  "experience"
+    t.boolean  "audio?"
+    t.string   "color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

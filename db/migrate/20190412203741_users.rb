@@ -5,6 +5,8 @@ class Users < ActiveRecord::Migration[5.0]
       t.string :password
       t.string :email
       t.boolean :experience
+      t.boolean :audio?
+      t.string :color
       t.timestamps
     end
   end
