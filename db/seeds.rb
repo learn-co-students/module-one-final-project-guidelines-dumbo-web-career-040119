@@ -1,3 +1,5 @@
+
+
 ua_shoes = Clothing.create(name: "Curry", material: "Polyester", price: 130.00)
 ua_shirts = Clothing.create(name: "Compression", material: "Nylon", price: 35.00)
 ua_pants = Clothing.create(name: "shorts", material: "Nylon", price: 50.00)
