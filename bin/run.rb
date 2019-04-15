@@ -11,8 +11,12 @@ def input_analyzer
     "name case"
   else
     "default"
+  end
 end
 
+# if input_analyzer == "price case"
+#   "No problem, let's get you stuff that'll leave your wallet happy."
+#
 
 
 puts "HELLO WORLD"
