@@ -3,7 +3,7 @@ class Directory < ActiveRecord::Base
   belongs_to :user
 
   def auto_directory(new_dir)
-    starting_tip_id = Tip.where("name = 'Pry_Tip'")[0].id
+    starting_tip_id = Tip.where('name = "Golden Rule"')[0].id
     new_dir.tip_id = starting_tip_id
     new_dir
   end
@@ -12,19 +12,36 @@ class Directory < ActiveRecord::Base
     Tip.where("id = #{self.tip_id}")[0].content
   end
 
-  def user_home_page
+  def get_user_labels(user)
+    counter = 0
+    all_users_tips = Directory.where("user_id = ?", user.id)
+    users_labels = all_users_tips.map(&:label).uniq
+    users_labels.map {|label| "#{counter += 1}. #{label}"}
+  end
+
+  def user_saved_tips(user)
+    prompt = TTY::Prompt.new
+    system 'clear'
+    labels = get_user_labels(user)
+    labels.push("Back")
+    binding.pry
+    nav = prompt.select("These are your saved labels", labels)
+    
+  end
+
+  def user_home_page(user)
     prompt = TTY::Prompt.new
     system 'clear'
     puts "Hello"
-    nav = prompt.select("Here's your first tip: #{home_page_tip}", %w(More Saved Exit))
+    #We'll make the below line better
+    nav = prompt.select("Here's the tip of the day:\n#{home_page_tip}", %w(More Saved Exit))
     if nav == "More"
-      Tip.chosen_category
+      user.select_a_tip
+    elsif nav == "Saved"
+      user_saved_tips(user)
     else
-      puts "Sorry bud this isn't done."
-      sleep 3
       CommandLineInterface.exit
     end
-
   end
 
 end

@@ -47,7 +47,7 @@ class CommandLineInterface
       system 'clear'
       new_dir = new_user.new_directory
       system 'clear'
-      new_dir.user_home_page
+      new_dir.user_home_page(new_user)
     elsif nav == "Login"
       log_in
     elsif nav == "Exit"

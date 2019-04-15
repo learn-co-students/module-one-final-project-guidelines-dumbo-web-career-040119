@@ -6,10 +6,6 @@ ActiveRecord::Base.establish_connection(
   database: 'db/development.db'
 )
 
+ActiveRecord::Base.logger = nil
+
 require_all 'lib'
-
-Directory.destroy_all
-Tip.destroy_all
-User.destroy_all
-
-Tip.create(name: "Pry_Tip", category: "Ruby", content: "Use pry, don't cry.")
