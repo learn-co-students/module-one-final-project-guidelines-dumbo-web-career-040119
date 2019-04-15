@@ -8,7 +8,4 @@ class CreateClothes < ActiveRecord::Migration[5.0]
       t.float :price
   end
 
-  def select_cheapest #satisfies User Story #1
-    choice = Article.new
-  end
 end
