@@ -14,7 +14,7 @@ class CommandLineInterface
   end
 
 
-  def exit
+  def self.exit
     system 'exit'
   end
 
@@ -45,12 +45,13 @@ class CommandLineInterface
       #insert a count
       new_user = User.create_a_user
       system 'clear'
-      binding.pry
-      new_user.new_directory
+      new_dir = new_user.new_directory
+      system 'clear'
+      new_dir.user_home_page
     elsif nav == "Login"
       log_in
     elsif nav == "Exit"
-      exit
+      CommandLineInterface.exit
     end
   end
 end

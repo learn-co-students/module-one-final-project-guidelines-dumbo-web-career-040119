@@ -2,6 +2,24 @@ class Tip < ActiveRecord::Base
   has_many :directories
   has_many :users, through: :directories
 
+  def self.chosen_category
+    system 'clear'
+    prompt = TTY::Prompt.new
+    nav = prompt.select("Which category would you like to view?", %w(Ruby Wellness Career Social))
+    if nav == "Ruby"
+      counter = 0
+      prompt = TTY::Prompt.new
+      ruby_tips = Tip.where('category = "Ruby"')
+      choices = ruby_tips.map {|tip| "#{counter += 1}. #{tip.name}"}
+      prompt.select("Choose a tip.", choices)
+      sleep 5
+      CommandLineInterface.exit
+    else
+      #Need to seed Tips
+      puts "We have no other tips for you."
+    end
+  end
+
   # def users_label
   #   puts "What label would you like to save this tip by?"
   #   users_label = gets.strip.downcase
@@ -32,12 +50,6 @@ class Tip < ActiveRecord::Base
   #   chosen_type = gets.strip.downcase
   #     #we have to write that 1. Ruby == 1 == 1. == Ruby
   #   return chosen_type
-  # end
-  #
-  # def search_tips_by_types
-  #   all_types = Directory.where("type = ?", chosen_type).limit(5)
-  #   all_types.map {|type| type = Tip.find(type)
-  #      "#{counter += 1}. #{tip.name}"}
   # end
 
 end

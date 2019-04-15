@@ -7,3 +7,9 @@ ActiveRecord::Base.establish_connection(
 )
 
 require_all 'lib'
+
+Directory.destroy_all
+Tip.destroy_all
+User.destroy_all
+
+Tip.create(name: "Pry_Tip", category: "Ruby", content: "Use pry, don't cry.")
