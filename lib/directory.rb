@@ -24,9 +24,34 @@ class Directory < ActiveRecord::Base
     system 'clear'
     labels = get_user_labels(user)
     labels.push("Back")
-    binding.pry
+    # binding.pry
     nav = prompt.select("These are your saved labels", labels)
-    
+
+if nav == "Back"
+  user_home_page(user)
+else
+  your_chosen_label = nav.split(". ")[1]
+  the_labels = Directory.where("label = ?", your_chosen_label)
+
+  counter = 0
+  choices = the_labels.map do |user_dir|
+    # binding.pry
+  tip = Tip.where("id = ?", user_dir.tip_id)[0]
+  # binding.pry
+"#{counter += 1}. #{tip.content}"
+
+ end
+
+ prompt = TTY::Prompt.new
+ prompt.select(" ", choices)
+ 
+end
+
+ #check whether displayed labels belong to a single user
+#check whether the displayed labels are in fact all the labels that this user has
+#
+
+
   end
 
   def user_home_page(user)
