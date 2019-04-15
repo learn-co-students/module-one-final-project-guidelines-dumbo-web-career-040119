@@ -46,8 +46,8 @@ class Directory < ActiveRecord::Base
   def display_and_edit_tip(tip, user)
     system "clear"
     prompt = TTY::Prompt.new
-    puts tip.name
-    puts tip.content
+    puts tip[0].name
+    puts tip[0].content
     nav = prompt.select(" ", %w[Edit Delete Back])
 
     if nav == "Edit"
@@ -83,6 +83,7 @@ class Directory < ActiveRecord::Base
       prompt = TTY::Prompt.new
       choice = prompt.select(' ', choices).split('. ')
       tip = Tip.where('content = ?', choice[1])
+      binding.pry
       display_and_edit_tip(tip, user)
     end
   end
@@ -90,8 +91,6 @@ class Directory < ActiveRecord::Base
  #check whether displayed labels belong to a single user
 #check whether the displayed labels are in fact all the labels that this user has
 #
-
-
 
   def user_home_page(user)
     prompt = TTY::Prompt.new

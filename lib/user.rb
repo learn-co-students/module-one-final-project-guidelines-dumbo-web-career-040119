@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
       sleep 2
       confirm_password(username)
     end
-    password 
+    password
   end
 
   def self.set_email

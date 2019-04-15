@@ -15,6 +15,8 @@ class CommandLineInterface
 
 
   def self.exit
+    puts "❤ Come back soon ❤"
+    sleep 2
     system 'exit'
   end
 
