@@ -21,7 +21,7 @@ require 'nokogiri'
       sleep 2
       puts "Follow our guidance."
       sleep 2
-      puts "You'll inhale for 4 seconds through your noss."
+      puts "You'll inhale for 4 seconds through your nose."
       sleep 2
       puts "Then you'll hold your breath for 7 seconds."
       sleep 2
@@ -151,7 +151,7 @@ require 'nokogiri'
         if counter == 1
           puts "\n\n             🔹🔹🔹 One last time. 🔹🔹🔹"
         else
-          "\n\n             🔹🔹🔹 #{counter -= 1} TIMES MORE 🔹🔹🔹"
+          "\n\n             🔹🔹🔹 #{counter} TIMES MORE 🔹🔹🔹"
         end
       end
       puts "Great job!"
@@ -191,7 +191,7 @@ require 'nokogiri'
         management_api = JSON.parse(RestClient.get("http://quotes.rest/qod.json?category=management"))
         quote = management_api["contents"]["quotes"][0]["quote"]
         author = management_api["contents"]["quotes"][0]["author"]
-        printed_quote = "Here is your management quote for today: \n\n '#{quote}'" +  "\n\n                               (#{author})"
+        printed_quote = "Here is your management quote for today: \n\n '#{quote}'" +  "\n                            (#{author})"
         prompt = TTY::Prompt.new
         nav = prompt.select(printed_quote, %w(Back))
         if nav == "Back"
@@ -203,25 +203,25 @@ require 'nokogiri'
 
 
       ############################# TIPS ############################################################
-      ###Get all tips where category = Wellness
-      def self.scrape_tips
-          list = []
-
-          html = open("https://ggia.berkeley.edu/")
-          doc = Nokogiri::HTML(html)
-          tips = doc.search(".article__content") #selects 12 tips
-
-          tips.map.with_index do |tip, index|
-              new_tip = Tip.new #create a new Tip instance
-              new_tip.title = tip.css('h4').text
-              new_tip.content = tip.css('p').text
-              # new_tip.content = tip.attr("href")
-              # list[index] = new_tip
-          end
-          #
-          # list.sort_by! {|obj| BY WHAT}
-          list
-      end
+      ###This data has been seeded instead, find this method in the seed file
+      # def self.scrape_tips
+      #     list = []
+      #
+      #     html = open("https://ggia.berkeley.edu/")
+      #     doc = Nokogiri::HTML(html)
+      #     tips = doc.search(".article__content") #selects 12 tips
+      #
+      #     tips.map.with_index do |tip, index|
+      #         new_tip = Tip.new #create a new Tip instance
+      #         new_tip.title = tip.css('h4').text
+      #         new_tip.content = tip.css('p').text
+      #         # new_tip.content = tip.attr("href")
+      #         # list[index] = new_tip
+      #     end
+      #     #
+      #     # list.sort_by! {|obj| BY WHAT}
+      #     list
+      # end
 
       ############################# EVERYTHING TOGETHER #############################################
 

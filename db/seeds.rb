@@ -20,7 +20,6 @@ def wellness_tips
   html = open("https://ggia.berkeley.edu/")
   doc = Nokogiri::HTML(html)
   tips = doc.search(".article__content") #selects 12 tips
-  binding.pry
 
   tips.map.with_index do |tip, index|
     new_tip = Tip.create() #create a new Tip instance
@@ -28,12 +27,11 @@ def wellness_tips
     new_tip.content = tip.css('p').text
     new_tip.category = "Wellness"
     new_tip.save!
-    # binding.pry
-    # list[index] = new_tip
-    # new_tip.content = tip.attr("href")
-    # list[index] = new_tip
   end
 end
+
+wellness_tips
+
 
 # def ruby_tips
 #   html = open("https://launchschool.com/books/ruby/read/arrays")
@@ -52,7 +50,6 @@ end
 #   end
 # end
 #
-# wellness_tips
 # ruby_tips
 # RubyTips.scraping_method_for_name.each do |tip|
 #   tip.create(name: name, category: "Ruby")

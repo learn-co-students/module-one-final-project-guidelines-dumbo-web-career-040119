@@ -112,6 +112,21 @@ class User < ActiveRecord::Base
     users_comment
   end
 
+  def save_tip_from_search(new_tip)
+    prompt = TTY::Prompt.new
+    system 'clear'
+    puts "\n\n" + new_tip.name.to_s
+    puts "\n\n" + new_tip.content.to_s
+    save_or_back = prompt.select('', %w[Save Back Exit])
+    if save_or_back == 'Save'
+      save_tip(new_tip)
+    elsif save_or_back == 'Back'
+      RubyTips.google_seach(self)
+    else
+      RubyTips.ruby_nav(self)
+    end
+  end
+
   def save_tip(tip)
     label = users_label
     comment = users_comment
@@ -157,6 +172,8 @@ class User < ActiveRecord::Base
       CommandLineInterface.user_home_page(self)
     elsif nav == 'Wellness'
       WellnessCli.go(self)
+    elsif nava == 'Ruby'
+      RubyTips.ruby_nav(self)
     else
       category_tips(nav)
     end
