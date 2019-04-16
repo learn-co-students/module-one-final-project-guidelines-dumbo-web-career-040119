@@ -122,8 +122,9 @@ class User < ActiveRecord::Base
 
   def chosen_tip(tip, nav)
     prompt = TTY::Prompt.new
-    return if tip.nil?
-
+    if tip == nil
+      return
+    end
     puts tip.content.to_s
     save_or_back = prompt.select('', %w[Save Back])
     save_tip(tip) if save_or_back == 'Save'
@@ -163,8 +164,9 @@ class User < ActiveRecord::Base
 
   def select_a_tip
     tip = category_search_page
-    return if tip.nil?
-
+    if tip == nil
+      return
+    end
     system 'clear'
     tip.map do |tip|
       puts tip.name

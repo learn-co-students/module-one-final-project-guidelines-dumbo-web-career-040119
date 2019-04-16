@@ -102,7 +102,7 @@ class CommandLineInterface
     system 'clear'
     self.logo_art
     puts "Hello"
-    nav = prompt.select("\nHere's today's tip:\n#{Tip.where("id = 1")[0].content}\n", %w(More Saved Logout))
+    nav = prompt.select("\nHere's today's tip:\n#{Tip.first.content}\n", %w(More Saved Logout))
     if nav == "More"
       user.select_a_tip
     elsif nav == "Saved"

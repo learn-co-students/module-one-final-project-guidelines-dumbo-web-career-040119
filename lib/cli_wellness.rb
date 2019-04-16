@@ -135,7 +135,7 @@ require 'nokogiri'
     #   end
     # end
     #
-    def self.breathing_circle
+    def self.breathing_circle(user)
       counter = 5
       5.times do #we can ask how many times repeat
         puts "\n\n                    🔹 INHALE 🔹\n\n"
@@ -155,6 +155,7 @@ require 'nokogiri'
         end
       end
       puts "Great job!"
+      WellnessCli.go(user)
     end
 
 
@@ -163,13 +164,13 @@ require 'nokogiri'
       #I remember Graham say something about that time in Ruby is funny - divided by 8?
       WellnessCli.invite_for_breathing
       sleep 1
-      WellnessCli.breathing_circle
+      WellnessCli.breathing_circle(user)
       #next step
     end
 
     ############################# QUOTES ############################################################
 
-      def self.get_inspirational_quote
+      def self.get_inspirational_quote(user)
         inspiration_api = JSON.parse(RestClient.get("http://quotes.rest/qod.json?category=inspire"))
         quote = inspiration_api["contents"]["quotes"][0]["quote"]
         author = inspiration_api["contents"]["quotes"][0]["author"]
@@ -178,13 +179,13 @@ require 'nokogiri'
         prompt = TTY::Prompt.new
         nav = prompt.select(printed_quote, %w(Back))
         if nav == "Back"
-          WellnessCli.go
+          WellnessCli.go(user)
         end
         puts "\n\n 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 \n\n"
         # system("say -v samantha '#{quote} #{author}'") #version for accessibility
       end
 
-      def self.get_management_quote
+      def self.get_management_quote(user)
         # binding.pry
         puts "\n\n 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 \n\n"
         management_api = JSON.parse(RestClient.get("http://quotes.rest/qod.json?category=management"))
@@ -194,7 +195,7 @@ require 'nokogiri'
         prompt = TTY::Prompt.new
         nav = prompt.select(printed_quote, %w(Back))
         if nav == "Back"
-          WellnessCli.go
+          WellnessCli.go(user)
         end
         puts "\n\n 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 \n\n"
         # system("say -v samantha '#{quote} #{author}'") version for accessibility
@@ -202,6 +203,7 @@ require 'nokogiri'
 
 
       ############################# TIPS ############################################################
+      ###Get all tips where category = Wellness
       def self.scrape_tips
           list = []
 
@@ -221,7 +223,7 @@ require 'nokogiri'
           list
       end
 
-      ############################# EVERYTHING TOGETHER ############################################################
+      ############################# EVERYTHING TOGETHER #############################################
 
     def self.wellness_options(user)
       # breathing = "Breathing exercise"
@@ -232,13 +234,13 @@ require 'nokogiri'
       prompt = TTY::Prompt.new
       nav = prompt.select("What are you interested in?", %w(Breathing Inspiration Management Tips Back))
       if nav == "Breathing"
-        WellnessCli.breathing
+        WellnessCli.breathing(user)
       elsif nav == "Inspiration"
-        WellnessCli.get_inspirational_quote
+        WellnessCli.get_inspirational_quote(user)
       elsif nav == "Management"
-        WellnessCli.get_management_quote
+        WellnessCli.get_management_quote(user)
       elsif nav == "Tips"
-        WellnessCli.scrape_tips
+        user.category_tips('Wellness')
       else
         user.category_search_page
       end
