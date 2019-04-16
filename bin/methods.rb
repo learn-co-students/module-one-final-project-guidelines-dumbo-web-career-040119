@@ -1,8 +1,10 @@
-def input_analyzer_first_question(string) #incomplete
+def input_analyzer_first_question(string)
   if string.include? "price"
     return answer = "budget"
   elsif string.include? "style"
-    return answer = "name case"
+    return answer = "luxury"
+  elsif string.include? "brand"
+    return answer = "brand"
   else
     return answer = "default"
   end
