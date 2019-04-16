@@ -2,12 +2,13 @@ class User < ActiveRecord::Base
   has_many :directories
   has_many :tips, through: :directories
 
-  def display_fav_tips
-    counter = 0
-    users_tips = Directory.where('user_id = ?', id)
-    users_tips.map do |_user_tip|
-      user_tip = Tip.find(user_id)
-      "#{counter += 1}. #{tip.content}"
+  def self.check_username(username)
+    if self.all.map(&:name).include?(username)
+      puts "That username is taken"
+      sleep 5/2
+      set_username
+    else
+      username
     end
   end
 
@@ -17,7 +18,12 @@ class User < ActiveRecord::Base
     username = prompt.ask('What is your username?') do |q|
       q.required true
     end
-    username
+    check_username(username)
+  end
+
+  def self.set_pw_page(username)
+    system 'clear'
+    puts 'What is your username? ' + username
   end
 
   def self.set_password
@@ -26,18 +32,21 @@ class User < ActiveRecord::Base
     prompt.mask('What is your password?', mask: heart)
   end
 
+  def self.validate_pw(confirm, password, username)
+    if confirm != password
+      puts('Your passwords do not match.')
+      sleep 3/2
+      confirm_password(username)
+    end
+  end
+
   def self.confirm_password(username)
-    system 'clear'
-    puts 'What is your username? ' + username
+    set_pw_page(username)
     password = set_password
     prompt = TTY::Prompt.new
     heart = prompt.decorate('❤ ', :red)
     confirm = prompt.mask('Please confirm your password?', mask: heart)
-    if confirm != password
-      puts('Your passwords do not match.')
-      sleep 2
-      confirm_password(username)
-    end
+    validate_pw(confirm, password, username)
     password
   end
 
@@ -49,29 +58,46 @@ class User < ActiveRecord::Base
     end
   end
 
-  # def nav
-  #   prompt = TTY::Prompt.new
-  #   prompt.yes?('Return to Landing Page?')
-  # end
+  def self.user_setup(username, password, email)
+    user = self.create(name: username, password: password, email: email)
+    puts "Your username is #{username} and email is #{email}."
+    sleep 3/2
+    user
+  end
 
   def self.create_a_user
     username = set_username
     password = confirm_password(username)
     email = set_email
-
-    user = User.create(name: username, password: password, email: email)
-    system 'clear'
-    puts "Your username is #{username} and email is #{email}."
-    sleep 3
-    user
-    # end of this method needs to connect to a new Directory
-    # get User color and audio preference
-    # send intro email to the email address
+    self.user_setup(username, password, email)
   end
 
-  def new_directory
-    new_dir = Directory.create(user_id: id)
-    new_dir.auto_directory(new_dir)
+  def self.check_password(username_query, password_query)
+    user = self.where('name = ?', username_query)
+    if user[0].password == password_query
+      user = user[0]
+      CommandLineInterface.user_home_page(user)
+    else
+      CommandLineInterface.fail_pw_check(username_query)
+    end
+  end
+
+  def self.check_name(username_query)
+    if User.all.map(&:name).include?(username_query)
+      CommandLineInterface.log_in_pw(username_query)
+    else
+      CommandLineInterface.fail_name_check
+    end
+  end
+
+  def self.log_in(username_query, password_query)
+    if !User.all.map(&:name).include?(username_query)
+      puts "That username does not match our records"
+    elsif !User.where("name = ?", username_query).map(&:password).include?(password_query)
+      puts "Password is incorrect. Try again."
+    else
+      User.select('name = ?', username_query && 'password = ?', password_query)
+    end
   end
 
   def users_label
@@ -87,11 +113,11 @@ class User < ActiveRecord::Base
   end
 
   def save_tip(tip)
-    u_label = users_label
-    u_comment = users_comment
-    Directory.create(user_id: self.id, tip_id: tip.id, label: u_label, comment: u_comment)
+    label = users_label
+    comment = users_comment
+    Directory.create(user_id: self.id, tip_id: tip.id, label: label, comment: comment)
     puts "Your tip has been saved"
-    sleep 2
+    sleep 3/2
   end
 
   def chosen_tip(tip, nav)
@@ -128,8 +154,7 @@ class User < ActiveRecord::Base
     prompt = TTY::Prompt.new
     nav = prompt.select("Which category would you like to view?", %w(Ruby Wellness Career Social Back))
     if nav == "Back"
-      current_dir = Directory.where("user_id = ?", self.id).last
-      current_dir.user_home_page(self)
+      CommandLineInterface.user_home_page(self)
     else
       category_tips(nav)
     end
@@ -144,4 +169,51 @@ class User < ActiveRecord::Base
     end
     chosen_tip(tip[0])
   end
+
+  def get_user_labels(user)
+    counter = 0
+    all_users_tips = Directory.where("user_id = ?", user.id)
+    users_labels = all_users_tips.map(&:label).uniq
+    output = users_labels.map {|label| "#{counter += 1}. #{label}"}
+    if counter == 0
+      #Add an animation if ther are no saved tips#
+      puts 'You currently have no saved tips. Choose "More" to find new ones!'
+      sleep 5/2
+      CommandLineInterface.user_home_page(self)
+    else
+      output
+    end
+  end
+
+  def user_saved_tips
+    prompt = TTY::Prompt.new
+    system 'clear'
+    labels = get_user_labels(self)
+    labels.push("Back")
+    nav = prompt.select("These are your saved labels", labels)
+
+    if nav == "Back"
+      CommandLineInterface.user_home_page(self)
+    else
+      your_chosen_label = nav.split(". ")[1]
+
+      all_labels = Directory.where("label = ?", your_chosen_label)
+      the_labels = all_labels.where("user_id = ?", self.id)
+      counter = 0
+      choices = the_labels.map do |user_dir|
+        tip = Tip.where("id = ?", user_dir.tip_id)[0]
+        "#{counter += 1}. #{tip.content}"
+      end
+
+      prompt = TTY::Prompt.new
+      choice = prompt.select(' ', choices).split('. ')
+      choice.delete_at(0)
+      choice = choice.join('. ')
+      tip = Tip.where('content = ?', choice)
+      all_dir = Directory.where('tip_id = ?', tip[0].id)
+      dir = all_dir.where('user_id = ?', self.id)
+      dir[0].display_and_edit_tip(tip, self)
+    end
+  end
+
 end
