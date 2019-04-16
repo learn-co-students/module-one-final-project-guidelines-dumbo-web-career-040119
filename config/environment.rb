@@ -1,3 +1,5 @@
+require 'net/http'
+require 'nokogiri'
 require 'bundler'
 Bundler.require
 

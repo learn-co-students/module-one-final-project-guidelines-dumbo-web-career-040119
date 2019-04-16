@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
     user = self.where('name = ?', username_query)
     if user[0].password == password_query
       user = user[0]
-      CommandLineInterface.user_home_page(user)
+      CommandLineInterface.temp_home_page(user)
     else
       CommandLineInterface.fail_pw_check(username_query)
     end
@@ -122,6 +122,10 @@ class User < ActiveRecord::Base
 
   def chosen_tip(tip, nav)
     prompt = TTY::Prompt.new
+    if tip == nil
+      return
+    end
+    puts "#{tip.content}"
     save_or_back = prompt.select('', %w[Save Back])
     if save_or_back == 'Save'
       save_tip(tip)
@@ -155,13 +159,18 @@ class User < ActiveRecord::Base
     nav = prompt.select("Which category would you like to view?", %w(Ruby Wellness Career Social Back))
     if nav == "Back"
       CommandLineInterface.user_home_page(self)
+    elsif nav == "Wellness"
+      WellnessCli.go
     else
       category_tips(nav)
     end
   end
 
   def select_a_tip
-    tip = category_search_page
+    tip = self.category_search_page
+    if tip == nil
+      return
+    end
     system 'clear'
     tip.map do |tip|
       puts tip.name

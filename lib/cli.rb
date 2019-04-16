@@ -28,8 +28,7 @@ class CommandLineInterface
   def self.exit
     puts "❤  Come back soon ❤"
     sleep 3/2
-    system 'exit'
-    system 'clear'
+    system 'exit!'
   end
 
 
@@ -86,8 +85,8 @@ class CommandLineInterface
   def self.user_home_page(user)
     prompt = TTY::Prompt.new
     system 'clear'
-    puts "Hello"
-    nav = prompt.select("\nHere's your first tip:\n#{Tip.where("id = 1")[0].content}\n", %w(More Saved Logout))
+    self.logo_art
+    nav = prompt.select("\n", %w(More Saved Logout))
     if nav == "More"
       user.select_a_tip
     elsif nav == "Saved"
@@ -96,6 +95,23 @@ class CommandLineInterface
       CommandLineInterface.landing_page
     end
   end
+
+  ################ Home Page Upon Signup & Login ################
+  def self.temp_home_page(user)
+    prompt = TTY::Prompt.new
+    system 'clear'
+    self.logo_art
+    puts "Hello"
+    nav = prompt.select("\nHere's today's tip:\n#{Tip.where("id = 1")[0].content}\n", %w(More Saved Logout))
+    if nav == "More"
+      user.select_a_tip
+    elsif nav == "Saved"
+      user.user_saved_tips
+    else
+      CommandLineInterface.landing_page
+    end
+  end
+
 
 
   #################### Main App Landing Page ####################
@@ -108,7 +124,7 @@ class CommandLineInterface
     nav = prompt.select("\nWhat would you like to do?", %w(Create Login Exit))
     if nav == "Create"
       new_user = User.create_a_user
-      user_home_page(new_user)
+      temp_home_page(new_user)
     elsif nav == "Login"
       self.log_in_name
     elsif nav == "Exit"
