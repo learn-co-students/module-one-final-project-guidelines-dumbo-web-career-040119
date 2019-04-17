@@ -67,6 +67,7 @@ require 'nokogiri'
     # end
 
     def self.breathe_in
+      puts "\n\n\n"
       circles = "🔹●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●"
       80.times do
         puts circles
@@ -96,6 +97,7 @@ require 'nokogiri'
     end
 
     def self.breathe_out
+      puts "\n\n\n"
       circles = "●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●🔹"
       80.times do
         system 'clear'
@@ -136,8 +138,8 @@ require 'nokogiri'
     # end
     #
     def self.breathing_circle(user)
-      counter = 5
-      5.times do #we can ask how many times repeat
+      counter = 3
+      3.times do #we can ask how many times repeat
         puts "\n\n                    🔹 INHALE 🔹\n\n"
         sleep 1
         WellnessCli.breathe_in
@@ -151,7 +153,7 @@ require 'nokogiri'
         if counter == 1
           puts "\n\n             🔹🔹🔹 One last time. 🔹🔹🔹"
         else
-          "\n\n             🔹🔹🔹 #{counter} TIMES MORE 🔹🔹🔹"
+          puts "\n\n             🔹🔹🔹 #{counter} TIMES MORE 🔹🔹🔹"
         end
       end
       puts "Great job!"
@@ -159,7 +161,7 @@ require 'nokogiri'
     end
 
 
-    def self.breathing
+    def self.breathing(user)
       #we could ask how many times they want to repeat or for how many minutes they want to breathe but if they're in panic?
       #I remember Graham say something about that time in Ruby is funny - divided by 8?
       WellnessCli.invite_for_breathing

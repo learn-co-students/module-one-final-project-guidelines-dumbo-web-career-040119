@@ -1,5 +1,22 @@
 class RubysFantasticFour
 
+  def computer_love_art
+    puts "
+     _______________                        |*\_/*|________
+    |  ___________  |     .-.     .-.      ||_/-\_|______  |
+    | |           | |    .****. .****.     | |           | |
+    | |   0   0   | |    .*****.*****.     | |   0   0   | |
+    | |     -     | |     .*********.      | |     -     | |
+    | |   \___/   | |      .*******.       | |   \___/   | |
+    | |___     ___| |       .*****.        | |___________| |
+    |_____|\_/|_____|        .***.         |_______________|
+      _|__|/ \|_|_.............*.............._|________|_
+     / ********** \                          / ********** \
+   /  ************  \                      /  ************  \
+  --------------------                    --------------------
+    "
+  end
+
   def self.display_methods
     table_data = [
     {:method => "select", :use => "Use it if you answer YES to both questions:"},
@@ -29,6 +46,7 @@ class RubysFantasticFour
     system 'clear'
     # system "artii RUBY'S FANTASTIC FOUR | red"
     sleep 1
+    computer_love_art
     puts "\n🔹 Here's the most important thing we learned: 🔹 \n\nYou have to nail Ruby's Fantastic Four methods."
     sleep 1
     RubysFantasticFour.display_methods

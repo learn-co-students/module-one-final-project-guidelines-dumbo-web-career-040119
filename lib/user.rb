@@ -107,13 +107,13 @@ class User < ActiveRecord::Base
 
   def users_label
     prompt = TTY::Prompt.new
-    users_label = prompt.ask('How would you like to label this tip?')
+    users_label = prompt.ask("\nHow would you like to label this tip?")
     users_label
   end
 
   def users_comment
     prompt = TTY::Prompt.new
-    users_comment = prompt.ask("Is there any comment you'd like to add for youself?")
+    users_comment = prompt.ask("\nIs there any comment you'd like to add for youself?")
     users_comment
   end
 
@@ -195,7 +195,10 @@ class User < ActiveRecord::Base
       choices.shuffle!
       choices = choices.slice(0, 7)
       choices.sort!
-      choices.push("\nSee More")
+      choices.last.insert(-1, "\n")
+      choices.push("See More")
+    else
+      choices.last.insert(-1, "\n")
     end
     choices.push('Back')
     choices.push('Exit to Home Page')
@@ -210,9 +213,10 @@ class User < ActiveRecord::Base
 
   def category_search_page
     system 'clear'
+    CatPageArt.display
     prompt = TTY::Prompt.new
     choices = ["Ruby", "Wellness", "Career", "Social", "Back to Home Page"]
-    nav = prompt.select('Which category would you like to view?', choices)
+    nav = prompt.select("\nWhich category would you like to view?\n", choices)
     if nav == 'Back to Home Page'
       CommandLineInterface.user_home_page(self)
     elsif nav == 'Wellness'
@@ -220,7 +224,7 @@ class User < ActiveRecord::Base
     elsif nav == 'Ruby'
       RubyTips.ruby_nav(self)
     elsif nav == 'Social'
-      SocialCli.go(self)
+      SocialCli.random_five(self)
     else
       category_tips(nav)
     end
@@ -232,9 +236,11 @@ class User < ActiveRecord::Base
       return
     end
     system 'clear'
-    tip.map do |tip|
-      puts tip.name
-      puts tip.content
+    if tip != nil
+      tip.map do |tip|
+        puts tip.name
+        puts tip.content
+      end
     end
     chosen_tip(tip[0])
   end
@@ -298,6 +304,7 @@ class User < ActiveRecord::Base
     prompt = TTY::Prompt.new
     system 'clear'
     labels = get_user_labels(self)
+    return if labels == nil
     labels.push('Back')
     nav = prompt.select('These are your saved labels', labels)
 

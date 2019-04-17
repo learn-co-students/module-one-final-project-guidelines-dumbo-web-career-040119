@@ -39,7 +39,7 @@ class CommandLineInterface
 
   ### Enabled here, as a class method - to be called anywhere ###
   def self.exit
-    puts "❤  Come back soon ❤"
+    puts "\n❤  Come back soon ❤\n"
     sleep 3/2
     system 'exit!'
   end
@@ -104,10 +104,11 @@ class CommandLineInterface
     prompt = TTY::Prompt.new
     system 'clear'
     self.logo_art
-    nav = prompt.select("\n", %w(More Saved Logout))
-    if nav == "More"
+    choices = ["More Tips", "Saved Tips", "Logout"]
+    nav = prompt.select("\n", choices)
+    if nav == "More Tips"
       user.select_a_tip
-    elsif nav == "Saved"
+    elsif nav == "Saved Tips"
       user.user_saved_tips
     else
       CommandLineInterface.landing_page
