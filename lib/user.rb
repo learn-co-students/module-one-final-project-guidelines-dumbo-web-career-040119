@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   end
 
   def self.user_setup(username, password, email)
-    user = create(name: username, password: password, email: email)
+    user = User.create(name: username, password: password, email: email)
     puts "Your username is #{username} and email is #{email}."
     sleep 3 / 2
     user
@@ -116,7 +116,7 @@ class User < ActiveRecord::Base
     prompt = TTY::Prompt.new
     system 'clear'
     puts "\n\n" + new_tip.name.to_s
-    puts "\n\n" + new_tip.content.to_s
+    puts "\n\n" + new_tip.content.to_s + "\n"
     save_or_back = prompt.select('', %w[Save Back Exit])
     if save_or_back == 'Save'
       save_tip(new_tip)
@@ -135,15 +135,39 @@ class User < ActiveRecord::Base
     sleep 3 / 2
   end
 
-  def chosen_tip(tip, nav)
+  def save_or_back
     prompt = TTY::Prompt.new
+    choice = prompt.select('', %w[Save Back])
+    save_tip(tip) if choice == 'Save'
+    category_tips(nav)
+  end
+
+  def save_or_back_or_read
+    prompt = TTY::Prompt.new
+    prompt.select('', %w[Save Browser Back])
+    if choice == 'Save'
+      save_tip(tip)
+    elsif choice == 'Browser'
+      system("open -a Safari #{tip.url}")
+    else
+      category_tips(nav)
+    end
+  end
+
+  def chosen_tip(tip, nav)
     if tip == nil
       return
     end
-    puts tip.content.to_s
-    save_or_back = prompt.select('', %w[Save Back])
-    save_tip(tip) if save_or_back == 'Save'
-    category_tips(nav)
+    puts "🔹 " + tip.title + " 🔹\n"
+    puts tip.content.to_s + "\n"
+    if tip.how_to != nil
+      puts "Here's how to do that: " + tip.how_to
+    end
+    if tip.url == nil
+      save_or_back
+    else
+      save_or_back_or_read
+    end
   end
 
   def tip_result(choice)
@@ -172,8 +196,10 @@ class User < ActiveRecord::Base
       CommandLineInterface.user_home_page(self)
     elsif nav == 'Wellness'
       WellnessCli.go(self)
-    elsif nava == 'Ruby'
+    elsif nav == 'Ruby'
       RubyTips.ruby_nav(self)
+    elsif nav == 'Social'
+      SocialCli.go(self)
     else
       category_tips(nav)
     end

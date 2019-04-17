@@ -5,6 +5,8 @@ class Tips < ActiveRecord::Migration[5.0]
       t.string :category
       t.string :title
       t.string :content
+      t.string :url
+      t.string :how_to
       t.boolean :experience_level
     end
   end

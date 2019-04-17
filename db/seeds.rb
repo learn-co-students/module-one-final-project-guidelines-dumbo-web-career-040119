@@ -28,9 +28,67 @@ def wellness_tips
     new_tip.category = "Wellness"
     new_tip.save!
   end
+
+  Tip.destroy_all(name: "")
 end
 
 wellness_tips
+
+
+Tip.create(
+  name: "Getting job interviews in tech.",
+  category: "Career",
+  title: "I spent 3 months applying to jobs after a coding bootcamp. Here’s what I learned.",
+  content: "A less-talked about part of the bootcamper’s journey is what happens after you graduate — when you’re searching for that six-figure developer position.",
+  url: "https://tinyurl.com/y85k467h"
+)
+
+Tip.create(
+  name: "Getting a job in 4 months.",
+  category: "Career",
+  title: "How to Get Your First Developer Job in 4 Months.",
+  content: "I got my first developer job after 4 months of learning web development. It was lot of hard work but this is how I did it.",
+  url: "https://tinyurl.com/y685wgfv"
+)
+
+Tip.create(
+  name: "Coding challenges for the future.",
+  category: "Career",
+  title: "Your new hobby.",
+  url: "https://codewars.com"
+)
+
+Tip.create(
+  name: "Women in Tech",
+  category: "Career",
+  title: "Women in Tech: Software Engineer Career Advice.",
+  content: "Is it really a man’s world when it comes to software engineering? Glancing around a Java uni lecture or checking out the engineering department at an old school software house might feel like you’ve just stepped into a secret men’s club.",
+  url: "https://tinyurl.com/y433md22"
+)
+
+Tip.create(
+  name: "Barriers to getting a job after a coding bootcamp.",
+  category: "Career",
+  title: "Women in Tech: Software Engineer Career Advice.",
+  content: "What about that 22% bootcamp graduates who don’t have jobs?",
+  url: "https://tinyurl.com/yy554hgy"
+)
+
+Tip.create(
+  name: "How to get a job after a coding bootcamp.",
+  category: "Career",
+  title: "How to get a job after a coding bootcamp.",
+  content: "Getting a tech job after a coding bootcamp is very possible, but not necessarily pain-free.",
+  url: "https://tinyurl.com/y4qyhkev"
+)
+
+Tip.create(
+  name: "Lessons I learned the first year after completing a coding bootcamp.",
+  category: "Career",
+  title: "Lessons I learned the first year after completing a coding bootcamp.",
+  content: "the resources that have helped me become a better programmer since.",
+  url: "https://tinyurl.com/y56go9ps"
+)
 
 
 # def ruby_tips

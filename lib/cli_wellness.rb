@@ -232,7 +232,7 @@ require 'nokogiri'
       # tips = "Bootcamp wellness tips"
       # back = "Back"
       prompt = TTY::Prompt.new
-      nav = prompt.select("What are you interested in?", %w(Breathing Inspiration Management Tips Back))
+      nav = prompt.select("What are you interested in?", %w(Breathing Inspiration Management Tips Fun Back))
       if nav == "Breathing"
         WellnessCli.breathing(user)
       elsif nav == "Inspiration"
@@ -241,6 +241,8 @@ require 'nokogiri'
         WellnessCli.get_management_quote(user)
       elsif nav == "Tips"
         user.category_tips('Wellness')
+      elsif nav == "Fun"
+        BananaMan.go(user)
       else
         user.category_search_page
       end
