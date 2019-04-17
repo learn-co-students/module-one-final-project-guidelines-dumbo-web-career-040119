@@ -201,7 +201,6 @@ require 'nokogiri'
         # system("say -v samantha '#{quote} #{author}'") version for accessibility
       end
 
-
       ############################# TIPS ############################################################
       ###This data has been seeded instead, find this method in the seed file
       # def self.scrape_tips
