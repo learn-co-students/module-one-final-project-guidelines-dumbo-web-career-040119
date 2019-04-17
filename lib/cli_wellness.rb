@@ -172,6 +172,7 @@ require 'nokogiri'
 
     ############################# QUOTES ############################################################
 
+
     def self.get_inspirational_quote(user)
       inspiration_api = JSON.parse(RestClient.get("http://quotes.rest/qod.json?category=inspire"))
       quote = inspiration_api["contents"]["quotes"][0]["quote"]
@@ -183,24 +184,27 @@ require 'nokogiri'
       nav = prompt.select(printed_quote, %w(Back))
       if nav == "Back"
         WellnessCli.go(user)
+              # system("say -v samantha '#{quote} #{author}'") #version for accessibilit
       end
       # system("say -v samantha '#{quote} #{author}'") #version for accessibility
     end
 
-
-    def self.get_management_quote(user)
-      # binding.pry
-      management_api = JSON.parse(RestClient.get("http://quotes.rest/qod.json?category=management"))
-      quote = management_api["contents"]["quotes"][0]["quote"]
-      author = management_api["contents"]["quotes"][0]["author"]
-      puts "\n\n                                 🔹 🔹 🔹                                       \n\n"
-      printed_quote = "Here is your management quote for today: \n\n '#{quote}'" +  "\n                            (#{author})"
-      puts "\n\n                                 🔹 🔹 🔹                                       \n\n"
-      prompt = TTY::Prompt.new
-      nav = prompt.select(printed_quote, %w(Back))
-      if nav == "Back"
-        WellnessCli.go(user)
+      def self.get_management_quote(user)
+        # binding.pry
+        management_api = JSON.parse(RestClient.get("http://quotes.rest/qod.json?category=management"))
+        quote = management_api["contents"]["quotes"][0]["quote"]
+        author = management_api["contents"]["quotes"][0]["author"]
+        puts "\n\n                                 🔹 🔹 🔹                                       \n\n"
+        printed_quote = "Here is your management quote for today: \n\n '#{quote}'" +  "\n                            (#{author})"
+        puts "\n\n                                 🔹 🔹 🔹                                       \n\n"
+        prompt = TTY::Prompt.new
+        nav = prompt.select(printed_quote, %w(Back))
+        if nav == "Back"
+          WellnessCli.go(user)
+        end
+        # system("say -v samantha '#{quote} #{author}'") version for accessibility
       end
+
       # system("say -v samantha '#{quote} #{author}'") version for accessibility
     end
 
