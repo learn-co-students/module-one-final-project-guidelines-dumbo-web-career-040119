@@ -78,7 +78,6 @@ def brand_question
     menu.choice 'Under Armor'
 end
 
-
 def exit_or_retry?
   prompt = TTY::Prompt.new
   prompt.select("Want to go again, or are you done for now?") do |menu|
