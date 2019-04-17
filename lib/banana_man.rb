@@ -2,6 +2,8 @@ class BananaMan
 
 def frame_one
   puts "
+
+
                                      :s+-
                                    /dy/+yN:
                                  :dh:---oN`
@@ -40,7 +42,10 @@ def frame_one
 end
 
 def frame_two
-  puts "                                 ``
+  puts "
+
+
+                                   ``
                                `sdyyhhd:
                                sh:::::sd`
                               +d/::::::do
@@ -84,6 +89,8 @@ end
 
 def frame_three
   puts "
+
+
                                       /hyyyhd/
                                      .m+::::+m:
                                      yh::::::+m-
@@ -126,6 +133,8 @@ end
 
 def frame_four
   puts "
+
+
                                        .-`
                                     -shyyd+`
                                     .m+:::odo`
@@ -164,6 +173,8 @@ end
 
 def frame_five
   puts "
+
+
                                       ./o/`
                                     .mh+/sd+`
                                      hy-:::sd+`
@@ -202,7 +213,10 @@ def frame_five
 end
 
 def frame_six
-  puts "                                      ````..`
+  puts "
+
+
+                                        ````..`
                                       hhyyyyd:
                                      sh:::::+m-
                                     .m+::::::sd`
@@ -246,6 +260,8 @@ end
 
 def frame_seven
   puts "
+
+
                                `yhyhhhd.
                                yh:::::yh`
                               oh::::::/m/
@@ -288,6 +304,8 @@ end
 
 def frame_eight
   puts "
+
+
                                    `:.
                                  .+dyyhy:
                                `ods:::+m-
@@ -331,6 +349,7 @@ def self.animation
     happyfuntimes.frame_two
     happyfuntimes.frame_three
     happyfuntimes.frame_four
+    happyfuntimes.frame_five
     happyfuntimes.frame_six
     happyfuntimes.frame_seven
     happyfuntimes.frame_eight
@@ -339,12 +358,8 @@ end
 
 def self.after_animation(user)
   prompt = TTY::Prompt.new
-  nav = prompt.select('What do you want to do next?', %w(More Back))
-  if nav == "More"
-    SocialCli.random_five
-  else
-    user.category_search_page
-  end
+  prompt.select('', %w(Back))
+  user.category_search_page
 end
 
 def self.go(user)

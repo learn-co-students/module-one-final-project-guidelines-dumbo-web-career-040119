@@ -12,7 +12,7 @@ class Directory < ActiveRecord::Base
 
   def edit_label(tip, user)
     prompt = TTY::Prompt.new
-    new_label = prompt.ask("What would you like to update your label as?")
+    new_label = prompt.ask("What would you like to update your label to?")
     self.update(label: new_label)
     puts "Your label has been updated to #{new_label}."
     display_and_edit_tip(tip, user)
