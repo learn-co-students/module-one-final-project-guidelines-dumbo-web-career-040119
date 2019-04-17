@@ -88,13 +88,13 @@ def exit_or_retry?
 end
 
 def new_round
- "Looking for more stuff? I got you. Talk to me again."
+ puts "Looking for more stuff? I got you. Talk to me again."
   first_question_input = gets.chomp
   input_analyzer_first_question(first_question_input)
 end
 
 def exit
-  "Hope I could help and hope you leave looking sharp."
+  puts "Hope I could help and hope you leave looking sharp."
 end
 
 welcome
