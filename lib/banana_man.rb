@@ -1,7 +1,7 @@
 class BananaMan
 
-def frame_one
-  puts "
+  def frame_one
+    puts "
                                      :s+-
                                    /dy/+yN:
                                  :dh:---oN`
@@ -35,12 +35,13 @@ def frame_one
                      :dyso+++++++oosdo     /dyoo+++++++ooyd/
                        `...........`         `...........`
   "
-  sleep (0.09)
-  system 'clear'
-end
+    sleep (0.09)
+    system 'clear'
+  end
 
-def frame_two
-  puts "                                 ``
+  def frame_two
+    puts "
+                                   ``
                                `sdyyhhd:
                                sh:::::sd`
                               +d/::::::do
@@ -78,12 +79,12 @@ def frame_two
                    -ds+///////+oyys.      /yyso+///////+hs
                      .-:::::/:-.`            `.-://///:.`
 "
-  sleep (0.09)
-  system 'clear'
-end
+    sleep (0.09)
+    system 'clear'
+  end
 
-def frame_three
-  puts "
+  def frame_three
+    puts "
                                       /hyyyhd/
                                      .m+::::+m:
                                      yh::::::+m-
@@ -120,12 +121,12 @@ def frame_three
                    -ds+///////++syy:     `ohys+////////+hs
                      .-://///::..            ..:://///:.`
 "
-  sleep (0.09)
-  system 'clear'
-end
+    sleep (0.09)
+    system 'clear'
+  end
 
-def frame_four
-  puts "
+  def frame_four
+    puts "
                                        .-`
                                     -shyyd+`
                                     .m+:::odo`
@@ -158,12 +159,12 @@ def frame_four
                    /hso+++++++++osh:     ohso+++++++++oyh-
                      `...........`         ............`
 "
-  sleep (0.09)
-  system 'clear'
-end
+    sleep (0.09)
+    system 'clear'
+  end
 
-def frame_five
-  puts "
+  def frame_five
+    puts "
                                       ./o/`
                                     .mh+/sd+`
                                      hy-:::sd+`
@@ -197,12 +198,13 @@ def frame_five
                    -hyo+++++++++osho     :hso+++++++++osh+
                      `............         `...........`
 "
-  sleep (0.09)
-  system 'clear'
-end
+    sleep (0.09)
+    system 'clear'
+  end
 
-def frame_six
-  puts "                                      ````..`
+  def frame_six
+    puts "
+                                        ````..`
                                       hhyyyyd:
                                      sh:::::+m-
                                     .m+::::::sd`
@@ -240,12 +242,12 @@ def frame_six
                    :hyo++++++osyyy/`      /syyso++++++osd+
                      `.........               `........`
 "
-  sleep (0.09)
-  system 'clear'
-end
+    sleep (0.09)
+    system 'clear'
+  end
 
-def frame_seven
-  puts "
+  def frame_seven
+    puts "
                                `yhyhhhd.
                                yh:::::yh`
                               oh::::::/m/
@@ -282,12 +284,12 @@ def frame_seven
                    .hyoo++++++osyys-      /yyyoo++++++osho
                      `.........`             `..........
 "
-  sleep (0.09)
-  system 'clear'
-end
+    sleep (0.09)
+    system 'clear'
+  end
 
-def frame_eight
-  puts "
+  def frame_eight
+    puts "
                                    `:.
                                  .+dyyhy:
                                `ods:::+m-
@@ -320,38 +322,35 @@ def frame_eight
                    :dyo+++++++++osho     +dso+++++++++osd+
                      `.----------.         `-----------`
 "
-  sleep (0.09)
-  system 'clear'
-end
-
-def self.animation
-  5.times do
-    happyfuntimes = BananaMan.new
-    happyfuntimes.frame_one
-    happyfuntimes.frame_two
-    happyfuntimes.frame_three
-    happyfuntimes.frame_four
-    happyfuntimes.frame_six
-    happyfuntimes.frame_seven
-    happyfuntimes.frame_eight
+    sleep (0.09)
+    system 'clear'
   end
-end
 
-def self.after_animation(user)
-  prompt = TTY::Prompt.new
-  nav = prompt.select('What do you want to do next?', %w(More Back))
-  if nav == "More"
-    SocialCli.random_five
-  else
+  def self.animation
+    5.times do
+      happyfuntimes = BananaMan.new
+      happyfuntimes.frame_one
+      happyfuntimes.frame_two
+      happyfuntimes.frame_three
+      happyfuntimes.frame_four
+      happyfuntimes.frame_five
+      happyfuntimes.frame_six
+      happyfuntimes.frame_seven
+      happyfuntimes.frame_eight
+    end
+  end
+
+  def self.after_animation(user)
+    prompt = TTY::Prompt.new
+    prompt.select('', %w(Back))
     user.category_search_page
   end
-end
 
-def self.go(user)
-  system 'clear'
-  puts "\n\n💃🏻 TIME TO HAVE SOME FUN 🕺🏿 \n\n"
-  BananaMan.animation
-  BananaMan.after_animation(user)
-end
+  def self.go(user)
+    system 'clear'
+    puts "\n\n💃🏻 TIME TO HAVE SOME FUN 🕺🏿 \n\n"
+    BananaMan.animation
+    BananaMan.after_animation(user)
+  end
 
 end
