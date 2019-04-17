@@ -27,9 +27,9 @@ class RubysFantasticFour
 
   def self.go(user)
     system 'clear'
-    system "artii RUBY'S FANTASTIC FOUR | red"
+    # system "artii RUBY'S FANTASTIC FOUR | red"
     sleep 1
-    puts "🔹 Here's the most important thing we learned: 🔹 \nyou have to nail Ruby's Fantastic Four methods."
+    puts "\n🔹 Here's the most important thing we learned: 🔹 \n\nYou have to nail Ruby's Fantastic Four methods."
     sleep 1
     RubysFantasticFour.display_methods
     RubysFantasticFour.after_table(user)

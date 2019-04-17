@@ -120,10 +120,11 @@ class CommandLineInterface
     system 'clear'
     self.logo_art
     puts "Hello"
-    nav = prompt.select("\nHere's today's tip:\n#{Tip.first.content}\n", %w(More Saved Logout))
-    if nav == "More"
+    choices = ["More Tips", "Saved Tips", "Logout"]
+    nav = prompt.select("\n🔹  Here's today's tip: 🔹\n\n#{Tip.first.content}\n", choices)
+    if nav == "More Tips"
       user.select_a_tip
-    elsif nav == "Saved"
+    elsif nav == "Saved Tips"
       user.user_saved_tips
     else
       CommandLineInterface.landing_page

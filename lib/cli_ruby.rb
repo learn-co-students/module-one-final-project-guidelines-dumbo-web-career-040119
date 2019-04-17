@@ -37,11 +37,12 @@ class RubyTips
     end
   end
 
-
+############## ADD A IMAGE/HOME PAGE FEATURE/RANDOMIZED IMAGE HERE ##############
   def self.ruby_nav(user)
     prompt = TTY::Prompt.new
+    system 'clear'
     choices = ["Tips", "Fantastic Four", "Search the Web", "Back"]
-    nav = prompt.select("We have some great Ruby Tips! You can also search for more.", choices)
+    nav = prompt.select("\nWe have some great Ruby Tips! You can also search for more.\n", choices)
     if nav == 'Tips'
       user.category_tips('Ruby')
     elsif nav == "Fantastic Four"

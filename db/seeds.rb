@@ -82,12 +82,13 @@ def wellness_tips
   html = open("https://ggia.berkeley.edu/")
   doc = Nokogiri::HTML(html)
   tips = doc.search(".article__content") #selects 12 tips
+  links = doc.search(".article__actions")
 
   tips.map.with_index do |tip, index|
     new_tip = Tip.create() #create a new Tip instance
     new_tip.name = tip.css('h4').text
     new_tip.content = tip.css('p').text
-    new_tip.url = doc.search(".article__actions").css('a').attr('href').text
+    new_tip.url = links.css('a').attr('href').text
     new_tip.category = "Wellness"
     new_tip.user_created = false
     new_tip.save!
