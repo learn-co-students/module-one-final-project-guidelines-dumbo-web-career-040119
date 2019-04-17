@@ -242,7 +242,7 @@ require 'nokogiri'
       elsif nav == "Tips"
         user.category_tips('Wellness')
       elsif nav == "Fun"
-        BananaMan.go
+        BananaMan.go(user)
       else
         user.category_search_page
       end
