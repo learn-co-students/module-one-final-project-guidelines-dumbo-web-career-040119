@@ -5,41 +5,28 @@ require 'lolcat'
 class CommandLineInterface
   ##################  This is just for fun  #####################
   def self.logo_art
-    # logo = puts "//".colorize(:cyan) + " ♥".colorize(:red)
+    logo = puts "//".colorize(:cyan) + " ♥".colorize(:red)
     art = puts <<-'EOF'
-
-             ████████╗██╗  ██╗██████╗ ██╗██╗   ██╗███████╗
-             ╚══██╔══╝██║  ██║██╔══██╗██║██║   ██║██╔════╝
-                ██║   ███████║██████╔╝██║██║   ██║█████╗
-                ██║   ██╔══██║██╔══██╗██║╚██╗ ██╔╝██╔══╝
-                ██║   ██║  ██║██║  ██║██║ ╚████╔╝ ███████╗
-                ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝  ╚══════╝
-
-                                  ###
-                            #  ### #### #
-                          #  ### \/#|### |/####
-                           ##\/#/ \||/##/_/##/_#
-                      #   ###  \/###|/ \/ # ###
-                       ###_\_\_\## | #/###_/_####
-                      ## #### # \ #| /  #### ##/##
-                 #  ###__#_--###`  |{,###---###-~####
-                                 \ }{
-                                  }}{
-                                  }}{
-                                  {{}
-                             , -=-~{ .-^- _
-                                  `}
-                                   {
-                  TIPS TO SURVIVE WEB DEV BOOTCAMP
-
-      EOF
-      # puts logo
+         _______________                        |*\_/*|________
+        | |           | |    .****. .****.     | |           | |
+        | |   0   0   | |    .*****.*****.     | |   0   0   | |
+        | |     -     | |     .*********.      | |     -     | |
+        | |   \___/   | |      .*******.       | |   \___/   | |
+        | |___     ___| |       .*****.        | |___________| |
+        |_____|\_/|_____|        .***.         |_______________|
+          _|__|/ \|_|_.............*.............._|________|_
+         / ********** \                          / ********** \
+       /  ************  \                      /  ************  \
+      --------------------                    --------------------
+    EOF
+    puts logo
     puts art
   end
 
+
   ### Enabled here, as a class method - to be called anywhere ###
   def self.exit
-    puts "\n❤  Come back soon ❤\n"
+    puts "❤  Come back soon ❤"
     sleep 3/2
     system 'exit!'
   end
@@ -77,13 +64,8 @@ class CommandLineInterface
     prompt = TTY::Prompt.new
     self.logo_art
     puts "\n"
-    username_query = prompt.ask("Username:")
-    if username_query == 'nil'
-      User.name_fail
-    else
-      username_query = username_query.downcase
-      User.check_name(username_query)
-    end
+    username_query = prompt.ask("Username:").downcase
+    User.check_name(username_query)
   end
 
 
@@ -104,11 +86,10 @@ class CommandLineInterface
     prompt = TTY::Prompt.new
     system 'clear'
     self.logo_art
-    choices = ["More Tips", "Saved Tips", "Logout"]
-    nav = prompt.select("\n", choices)
-    if nav == "More Tips"
+    nav = prompt.select("\n", %w(More Saved Logout))
+    if nav == "More"
       user.select_a_tip
-    elsif nav == "Saved Tips"
+    elsif nav == "Saved"
       user.user_saved_tips
     else
       CommandLineInterface.landing_page
@@ -121,11 +102,10 @@ class CommandLineInterface
     system 'clear'
     self.logo_art
     puts "Hello"
-    choices = ["More Tips", "Saved Tips", "Logout"]
-    nav = prompt.select("\n🔹  Here's today's tip: 🔹\n\n#{Tip.first.content}\n", choices)
-    if nav == "More Tips"
+    nav = prompt.select("\nHere's today's tip:\n#{Tip.first.content}\n", %w(More Saved Logout))
+    if nav == "More"
       user.select_a_tip
-    elsif nav == "Saved Tips"
+    elsif nav == "Saved"
       user.user_saved_tips
     else
       CommandLineInterface.landing_page
@@ -138,7 +118,8 @@ class CommandLineInterface
   def self.landing_page
     system 'clear'
     self.logo_art
-    puts "Welcome to Thrive"
+    system "artii Ruby Resources | lolcat"
+    puts "\nWelcome to Ruby Recources"
     prompt = TTY::Prompt.new
     nav = prompt.select("\nWhat would you like to do?", %w(Create Login Exit))
     if nav == "Create"

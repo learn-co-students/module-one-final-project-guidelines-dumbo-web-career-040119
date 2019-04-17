@@ -18,7 +18,6 @@ class User < ActiveRecord::Base
     username = prompt.ask('What is your username?') do |q|
       q.required true
     end
-    username = username.downcase
     check_username(username)
   end
 
@@ -91,13 +90,9 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.name_fail
-    puts 'That username does not match our records'
-  end
-
   def self.log_in(username_query, password_query)
-    if !User.all.map(&:name).include?(username_query.downcase)
-      self.name_fail
+    if !User.all.map(&:name).include?(username_query)
+      puts 'That username does not match our records'
     elsif !User.where('name = ?', username_query).map(&:password).include?(password_query)
       puts 'Password is incorrect. Try again.'
     else
@@ -107,28 +102,26 @@ class User < ActiveRecord::Base
 
   def users_label
     prompt = TTY::Prompt.new
-    users_label = prompt.ask("\nHow would you like to label this tip?")
+    users_label = prompt.ask('How would you like to label this tip?')
     users_label
   end
 
   def users_comment
     prompt = TTY::Prompt.new
-    users_comment = prompt.ask("\nIs there any comment you'd like to add for youself?")
+    users_comment = prompt.ask("Is there any comment you'd like to add for youself?")
     users_comment
   end
 
   def save_tip_from_search(new_tip)
     prompt = TTY::Prompt.new
     system 'clear'
-    puts "\n🔹  #{new_tip.name.to_s} 🔹"
-    puts "\n\n" + new_tip.content.to_s + "\n\n"
-    choices = ["Save the Tip", "Back", "Exit to Home Page"]
-    save_or_back = prompt.select('', choices)
-    if save_or_back == 'Save the Tip'
+    puts "\n\n" + new_tip.name.to_s
+    puts "\n\n" + new_tip.content.to_s + "\n"
+    save_or_back = prompt.select('', %w[Save Back Exit])
+    if save_or_back == 'Save'
       save_tip(new_tip)
-      RubyTips.ask_to_exit(self)
     elsif save_or_back == 'Back'
-      RubyTips.ask_to_exit(self)
+      RubyTips.google_seach(self)
     else
       RubyTips.ruby_nav(self)
     end
@@ -138,28 +131,24 @@ class User < ActiveRecord::Base
     label = users_label
     comment = users_comment
     Directory.create(user_id: id, tip_id: tip.id, label: label, comment: comment)
-    puts 'Your tip has been saved 👍'
+    puts 'Your tip has been saved'
     sleep 3 / 2
   end
 
-  def save_or_back(tip, nav)
+  def save_or_back
     prompt = TTY::Prompt.new
-    choices = ["Save the Tip", "Back"]
-    choice = prompt.select('', choices)
-    save_tip(tip) if choice == 'Save the Tip'
+    choice = prompt.select('', %w[Save Back])
+    save_tip(tip) if choice == 'Save'
     category_tips(nav)
   end
 
-  def save_or_back_or_read(tip, nav)
+  def save_or_back_or_read
     prompt = TTY::Prompt.new
-    choices = ["Save the Tip", "Search the Web", "Back"]
-    choice = prompt.select('', choices)
-    if choice == 'Save the Tip'
+    prompt.select('', %w[Save Browser Back])
+    if choice == 'Save'
       save_tip(tip)
-      save_or_back_or_read(tip, nav)
-    elsif choice == 'Search the Web'
+    elsif choice == 'Browser'
       system("open -a Safari #{tip.url}")
-      save_or_back_or_read(tip, nav)
     else
       category_tips(nav)
     end
@@ -169,62 +158,48 @@ class User < ActiveRecord::Base
     if tip == nil
       return
     end
-    puts "\n🔹  #{tip.name} 🔹\n\n"
+    puts "🔹 " + tip.title + " 🔹\n"
     puts tip.content.to_s + "\n"
-    puts "\nYou can read more here: #{tip.url}"
     if tip.how_to != nil
-      puts "\nHere's how to do that: " + tip.how_to
+      puts "Here's how to do that: " + tip.how_to
     end
     if tip.url == nil
-      save_or_back(tip, nav)
+      save_or_back
     else
-      save_or_back_or_read(tip, nav)
+      save_or_back_or_read
     end
   end
 
   def tip_result(choice)
-    Tip.where('name = ?', choice)
+    choice_array = choice.split('. ')
+    Tip.where('name = ?', choice_array[1])
   end
 
   def category_tips(nav)
+    counter = 0
     prompt = TTY::Prompt.new
-    all_tips = Tip.where('category = ?', nav)
-    no_user_tips = all_tips.where('user_created = ?', false)
-    choices = no_user_tips.map { |tip| "#{tip.name}" }
-    if choices.length > 7
-      choices.shuffle!
-      choices = choices.slice(0, 7)
-      choices.sort!
-      choices.last.insert(-1, "\n")
-      choices.push("See More")
-    else
-      choices.last.insert(-1, "\n")
-    end
+    ruby_tips = Tip.where('category = ?', nav)
+    choices = ruby_tips.map { |tip| "#{counter += 1}. #{tip.name}" }
     choices.push('Back')
-    choices.push('Exit to Home Page')
     system 'clear'
-    choice = prompt.select("Choose a tip.\n", choices, per_page: 10)
-    self.category_search_page if choice == 'Back'
-    self.category_tips(nav) if choice == 'See More'
-    CommandLineInterface.user_home_page(self) if choice == 'Exit to Home Page'
+    choice = prompt.select('Choose a tip.', choices)
+    category_search_page if choice == 'Back'
     tip = tip_result(choice)[0]
     chosen_tip(tip, nav)
   end
 
   def category_search_page
     system 'clear'
-    CatPageArt.display
     prompt = TTY::Prompt.new
-    choices = ["Ruby", "Wellness", "Career", "Social", "Back to Home Page"]
-    nav = prompt.select("\nWhich category would you like to view?\n", choices)
-    if nav == 'Back to Home Page'
+    nav = prompt.select('Which category would you like to view?', %w[Ruby Wellness Career Social Back])
+    if nav == 'Back'
       CommandLineInterface.user_home_page(self)
     elsif nav == 'Wellness'
       WellnessCli.go(self)
     elsif nav == 'Ruby'
       RubyTips.ruby_nav(self)
     elsif nav == 'Social'
-      SocialCli.random_five(self)
+      SocialCli.go(self)
     else
       category_tips(nav)
     end
@@ -236,11 +211,9 @@ class User < ActiveRecord::Base
       return
     end
     system 'clear'
-    if tip != nil
-      tip.map do |tip|
-        puts tip.name
-        puts tip.content
-      end
+    tip.map do |tip|
+      puts tip.name
+      puts tip.content
     end
     chosen_tip(tip[0])
   end
@@ -304,7 +277,6 @@ class User < ActiveRecord::Base
     prompt = TTY::Prompt.new
     system 'clear'
     labels = get_user_labels(self)
-    return if labels == nil
     labels.push('Back')
     nav = prompt.select('These are your saved labels', labels)
 
@@ -316,7 +288,6 @@ class User < ActiveRecord::Base
       all_labels = Directory.where('label = ?', your_chosen_label)
       the_labels = all_labels.where('user_id = ?', id)
       counter = 0
-
       choices = the_labels.map do |user_dir|
         tip = Tip.where('id = ?', user_dir.tip_id)[0]
         "#{counter += 1}. #{tip.content}"
@@ -324,11 +295,9 @@ class User < ActiveRecord::Base
 
       prompt = TTY::Prompt.new
       choice = prompt.select(' ', choices).split('. ')
-
       choice.delete_at(0)
       choice = choice.join('. ')
       tip = Tip.where('content = ?', choice)
-
       all_dir = Directory.where('tip_id = ?', tip[0].id)
       dir = all_dir.where('user_id = ?', id)
       dir[0].display_and_edit_tip(tip, self)
