@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
     username = prompt.ask('What is your username?') do |q|
       q.required true
     end
+    username = username.downcase
     check_username(username)
   end
 
@@ -90,9 +91,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.name_fail
+    puts 'That username does not match our records'
+  end
+
   def self.log_in(username_query, password_query)
-    if !User.all.map(&:name).include?(username_query)
-      puts 'That username does not match our records'
+    if !User.all.map(&:name).include?(username_query.downcase)
+      self.name_fail
     elsif !User.where('name = ?', username_query).map(&:password).include?(password_query)
       puts 'Password is incorrect. Try again.'
     else
@@ -120,8 +125,9 @@ class User < ActiveRecord::Base
     save_or_back = prompt.select('', %w[Save Back Exit])
     if save_or_back == 'Save'
       save_tip(new_tip)
+      RubyTips.ask_to_exit(self)
     elsif save_or_back == 'Back'
-      RubyTips.google_seach(self)
+      RubyTips.ask_to_exit(self)
     else
       RubyTips.ruby_nav(self)
     end
@@ -158,7 +164,7 @@ class User < ActiveRecord::Base
     if tip == nil
       return
     end
-    puts "🔹 " + tip.title + " 🔹\n"
+    puts "🔹 " + "#{tip.name}" + " 🔹\n"
     puts tip.content.to_s + "\n"
     if tip.how_to != nil
       puts "Here's how to do that: " + tip.how_to
@@ -171,19 +177,27 @@ class User < ActiveRecord::Base
   end
 
   def tip_result(choice)
-    choice_array = choice.split('. ')
-    Tip.where('name = ?', choice_array[1])
+    Tip.where('name = ?', choice)
   end
 
   def category_tips(nav)
-    counter = 0
     prompt = TTY::Prompt.new
-    ruby_tips = Tip.where('category = ?', nav)
-    choices = ruby_tips.map { |tip| "#{counter += 1}. #{tip.name}" }
+    all_tips = Tip.where('category = ?', nav)
+    no_user_tips = all_tips.where('user_created = ?', false)
+    choices = no_user_tips.map { |tip| "#{tip.name}" }
+    if choices.length > 7
+      choices.shuffle!
+      choices = choices.slice(0, 7)
+      choices.sort!
+      choices.push('See More')
+    end
     choices.push('Back')
+    choices.push('Exit to Home Page')
     system 'clear'
-    choice = prompt.select('Choose a tip.', choices)
-    category_search_page if choice == 'Back'
+    choice = prompt.select('Choose a tip.', choices, per_page: 10)
+    self.category_search_page if choice == 'Back'
+    self.category_tips(nav) if choice == 'See More'
+    CommandLineInterface.user_home_page(self) if choice == 'Exit to Home Page'
     tip = tip_result(choice)[0]
     chosen_tip(tip, nav)
   end
@@ -191,8 +205,9 @@ class User < ActiveRecord::Base
   def category_search_page
     system 'clear'
     prompt = TTY::Prompt.new
-    nav = prompt.select('Which category would you like to view?', %w[Ruby Wellness Career Social Back])
-    if nav == 'Back'
+    choices = ["Ruby", "Wellness", "Career", "Social", "Back to Home Page"]
+    nav = prompt.select('Which category would you like to view?', choices)
+    if nav == 'Back to Home Page'
       CommandLineInterface.user_home_page(self)
     elsif nav == 'Wellness'
       WellnessCli.go(self)
