@@ -118,16 +118,16 @@ class User < ActiveRecord::Base
   ###################### Save Tip, Label, and Comment ##########################
   def users_label_a
     CliStart.sam_say("How would you like to label this tip?")
-    prompt = TTY::Prompt.new
     puts "\n"
+    prompt = TTY::Prompt.new
     users_label_a = prompt.ask("How would you like to label this tip?")
     users_label_a
   end
 
   def users_comment_a
     CliStart.sam_say("Is there any comment you would like to add for yourself?")
-    prompt = TTY::Prompt.new
     puts "\n"
+    prompt = TTY::Prompt.new
     users_comment_a = prompt.ask("Is there any comment you would like to add for yourself?")
     users_comment_a
   end

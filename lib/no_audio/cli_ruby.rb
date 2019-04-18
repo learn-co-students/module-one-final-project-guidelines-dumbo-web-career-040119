@@ -8,7 +8,6 @@ class RubyTips
 
     link_and_description = doc.search(".g")
 
-
     new_tip = Tip.create()
 
     new_tip.name = link_and_description.first.search('h3').text

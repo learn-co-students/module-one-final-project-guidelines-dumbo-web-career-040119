@@ -189,7 +189,6 @@ require 'nokogiri'
 
 
     def self.get_management_quote(user)
-      # binding.pry
       management_api = JSON.parse(RestClient.get("http://quotes.rest/qod.json?category=management"))
       quote = management_api["contents"]["quotes"][0]["quote"]
       author = management_api["contents"]["quotes"][0]["author"]

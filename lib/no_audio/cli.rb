@@ -7,6 +7,7 @@ class CommandLineInterface
   def self.logo_art
     # logo = puts "//".colorize(:cyan) + " ♥".colorize(:red)
     art = puts <<-'EOF'
+
              ████████╗██╗  ██╗██████╗ ██╗██╗   ██╗███████╗
              ╚══██╔══╝██║  ██║██╔══██╗██║██║   ██║██╔════╝
                 ██║   ███████║██████╔╝██║██║   ██║█████╗
@@ -68,7 +69,6 @@ class CommandLineInterface
     end
   end
 
-
   def self.log_in_name
     system 'clear'
     prompt = TTY::Prompt.new
@@ -82,7 +82,6 @@ class CommandLineInterface
       User.check_name(username_query)
     end
   end
-
 
   def self.log_in_pw(username_query)
     system 'clear'
@@ -112,10 +111,12 @@ class CommandLineInterface
     end
   end
 
+
   ################ Home Page Upon Signup & Login ################
   def self.temp_home_page(user)
     prompt = TTY::Prompt.new
     system 'clear'
+    puts "\n"
     self.logo_art
     puts "Hello"
     choices = ["More Tips", "Saved Tips", "Logout"]
@@ -130,10 +131,10 @@ class CommandLineInterface
   end
 
 
-
   #################### Main App Landing Page ####################
   def self.landing_page
     system 'clear'
+    puts "\n"
     self.logo_art
     puts "Welcome to Thrive"
     prompt = TTY::Prompt.new
