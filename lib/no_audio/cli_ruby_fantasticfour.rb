@@ -1,6 +1,6 @@
 class RubysFantasticFour
 
-  def computer_love_art
+  def self.computer_love_art
     puts "
      _______________                        |*\_/*|________
     |  ___________  |     .-.     .-.      ||_/-\_|______  |
@@ -46,7 +46,7 @@ class RubysFantasticFour
     system 'clear'
     # system "artii RUBY'S FANTASTIC FOUR | red"
     sleep 1
-    computer_love_art
+    self.computer_love_art
     puts "\n🔹 Here's the most important thing we learned: 🔹 \n\nYou have to nail Ruby's Fantastic Four methods."
     sleep 1
     RubysFantasticFour.display_methods

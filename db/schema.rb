@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20190412204247) do
     t.string  "content"
     t.string  "url"
     t.string  "how_to"
+    t.boolean "user_created"
     t.boolean "experience_level"
   end
 
