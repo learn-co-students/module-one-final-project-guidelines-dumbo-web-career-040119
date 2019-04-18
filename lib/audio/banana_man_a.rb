@@ -1,6 +1,6 @@
-class BananaMan
+class BananaManA
 
-  def frame_one
+  def frame_one_a
     puts "
                                      :s+-
                                    /dy/+yN:
@@ -39,7 +39,7 @@ class BananaMan
     system 'clear'
   end
 
-  def frame_two
+  def frame_two_a
     puts "
                                    ``
                                `sdyyhhd:
@@ -83,7 +83,7 @@ class BananaMan
     system 'clear'
   end
 
-  def frame_three
+  def frame_three_a
     puts "
                                       /hyyyhd/
                                      .m+::::+m:
@@ -125,7 +125,7 @@ class BananaMan
     system 'clear'
   end
 
-  def frame_four
+  def frame_four_a
     puts "
                                        .-`
                                     -shyyd+`
@@ -163,7 +163,7 @@ class BananaMan
     system 'clear'
   end
 
-  def frame_five
+  def frame_five_a
     puts "
                                       ./o/`
                                     .mh+/sd+`
@@ -202,7 +202,7 @@ class BananaMan
     system 'clear'
   end
 
-  def frame_six
+  def frame_six_a
     puts "
                                         ````..`
                                       hhyyyyd:
@@ -246,7 +246,7 @@ class BananaMan
     system 'clear'
   end
 
-  def frame_seven
+  def frame_seven_a
     puts "
                                `yhyhhhd.
                                yh:::::yh`
@@ -288,7 +288,7 @@ class BananaMan
     system 'clear'
   end
 
-  def frame_eight
+  def frame_eight_a
     puts "
                                    `:.
                                  .+dyyhy:
@@ -326,31 +326,31 @@ class BananaMan
     system 'clear'
   end
 
-  def self.animation
-    5.times do
-      happyfuntimes = BananaMan.new
-      happyfuntimes.frame_one
-      happyfuntimes.frame_two
-      happyfuntimes.frame_three
-      happyfuntimes.frame_four
-      happyfuntimes.frame_five
-      happyfuntimes.frame_six
-      happyfuntimes.frame_seven
-      happyfuntimes.frame_eight
+  def self.animation_a
+    2.times do
+      happyfuntimes = BananaManA.new
+      happyfuntimes.frame_one_a
+      happyfuntimes.frame_two_a
+      happyfuntimes.frame_three_a
+      happyfuntimes.frame_four_a
+      happyfuntimes.frame_five_a
+      happyfuntimes.frame_six_a
+      happyfuntimes.frame_seven_a
+      happyfuntimes.frame_eight_a
     end
   end
 
-  def self.after_animation(user)
+  def self.after_animation_a(user)
     prompt = TTY::Prompt.new
     prompt.select('', %w(Back))
-    user.category_search_page
+    WellnessCliA.wellness_options_a(user)
   end
 
-  def self.go(user)
+  def self.go_a(user)
     system 'clear'
-    puts "\n\n💃🏻 TIME TO HAVE SOME FUN 🕺🏿 \n\n"
-    BananaMan.animation
-    BananaMan.after_animation(user)
+    BananaManA.animation_a
+    CliStart.alex_say("This page features a stop-motion animation of a dancing banana composed out of characters such as brackets. Please use the down arrow and enter to go back to the previous page.")
+    BananaManA.after_animation_a(user)
   end
 
 end
