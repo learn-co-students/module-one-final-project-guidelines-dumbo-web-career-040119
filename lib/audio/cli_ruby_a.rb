@@ -9,7 +9,7 @@ class RubyTipsA
 
     link_and_description = doc.search(".g")
 
-    new_tip = TipA.create()
+    new_tip = Tip.create()
 
     new_tip.name = link_and_description.first.search('h3').text
     new_tip.content = link_and_description.first.search('.s').css('span').text

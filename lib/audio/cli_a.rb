@@ -2,7 +2,7 @@ require 'colorize'
 require 'artii'
 require 'lolcat'
 
-class CommandLineInterface
+class CommandLineInterfaceA
   ##################  This is just for fun  #####################
   def self.logo_art_a
     # logo = puts "//".colorize(:cyan) + " ♥".colorize(:red)
@@ -114,7 +114,7 @@ class CommandLineInterface
     elsif nav == "Saved Tips"
       user.user_saved_tips_a
     else
-      CommandLineInterface.landing_page_a
+      CommandLineInterfaceA.landing_page_a
     end
   end
 
@@ -132,7 +132,7 @@ class CommandLineInterface
     elsif nav == "Saved Tips"
       user.user_saved_tips_a
     else
-      CommandLineInterface.landing_page_a
+      CommandLineInterfaceA.landing_page_a
     end
   end
 
@@ -153,7 +153,7 @@ class CommandLineInterface
     elsif nav == "Login"
       self.log_in_name_a
     elsif nav == "Exit"
-      CommandLineInterface.exit
+      CommandLineInterfaceA.exit
     end
   end
 end
