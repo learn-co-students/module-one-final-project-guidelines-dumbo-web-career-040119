@@ -123,7 +123,8 @@ class CommandLineInterfaceA
     prompt = TTY::Prompt.new
     system 'clear'
     puts "Hello"
-    CliStart.sam_say("Hello. You are on the homepage. Here is today's tip: #{Tip.first.content}.")
+    todays_tip = Tip.first.content
+    CliStart.sam_say("Hello. You are on the homepage. Here is today's tip: #{todays_tip}.")
     choices = ["More Tips", "Saved Tips", "Logout"]
     nav = prompt.select("\n🔹  Here's today's tip: 🔹\n\n#{Tip.first.content}\n", choices)
     CliStart.sam_say("Use arrows to choose first option to explore more tips, second option to access your saved tips and third to logout.")

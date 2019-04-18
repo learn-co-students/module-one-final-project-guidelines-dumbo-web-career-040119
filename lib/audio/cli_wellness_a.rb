@@ -13,29 +13,26 @@ require 'nokogiri'
 ############################# BREATHING METHODS ############################################################
     def self.invite_for_breathing_a
       puts "\n 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 \n"
-      CliStart.sam_say_slow("Stress is real.")
+      CliStart.sam_say("Stress is real.")
       puts "Stress is real."
       sleep (0.5)
-      CliStart.sam_say_slow("One of the ways to tackle it is through intentional breathing.")
+      CliStart.sam_say("One of the ways to tackle it is through intentional breathing.")
       puts "One of the ways to tackle it is through intentional breathing."
       sleep (0.5)
-      CliStart.sam_say_slow("We invite you to do a simple exercise.")
+      CliStart.sam_say("We invite you to do a simple exercise.")
       puts "We invite you to do a simple exercise."
       sleep (0.5)
-      CliStart.sam_say_slow("Follow our guidance.")
+      CliStart.sam_say("Follow our guidance.")
       puts "Follow our guidance."
       sleep (0.5)
-      CliStart.sam_say_slow("You'll inhale for 4 seconds through your nose.")
+      CliStart.sam_say("You will inhale for 4 seconds through your nose.")
       puts "You'll inhale for 4 seconds through your nose."
       sleep (0.5)
-      CliStart.sam_say_slow("Then you'll hold your breath for 7 seconds.")
+      CliStart.sam_say("Then you will hold your breath for 7 seconds.")
       puts "Then you'll hold your breath for 7 seconds."
       sleep (0.5)
-      CliStart.sam_say_slow("Finally, you'll exhale for 8 seconds through your mouth.")
+      CliStart.sam_say("Finally, you will exhale for 8 seconds through your mouth.")
       puts "Finally, you'll exhale for 8 seconds through your mouth."
-      sleep (0.5)
-      CliStart.sam_say_slow("Repeat 5 times.")
-      puts "Repeat 5 times." #we can ask how many times to repeat
       puts "\n 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 🔹 \n "
     end
 
@@ -61,7 +58,7 @@ require 'nokogiri'
     def self.breathing_a(user)
       WellnessCliA.invite_for_breathing_a
       sleep 1
-      WellnessCli.breathing_circle_a(user)
+      WellnessCliA.breathing_circle_a(user)
       #next step
     end
 
@@ -131,7 +128,7 @@ require 'nokogiri'
       # tips = "Bootcamp wellness tips"
       # back = "Back"
       prompt = TTY::Prompt.new
-      CliStart.sam_say("You are on the Ruby category page. What are you interested in?")
+      CliStart.sam_say("You are on the Wellness category page. What are you interested in?")
       CliStart.sam_say("Use the down arrow key and enter to choose option. Top option: Breathing exercise. Second option: Inspirational quote. Third option: management quote. Fourth option: Wellness tips. Fifth option: Fun animation. Sixth option: Back to the homepage.")
       nav = prompt.select("What are you interested in?", %w(Breathing Inspiration Management Tips Fun Back))
       if nav == "Breathing"

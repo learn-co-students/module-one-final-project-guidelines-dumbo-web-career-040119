@@ -1,4 +1,4 @@
-class StartCli
+class CliStart
 
 def self.sam_say(text)
 	system("say -v samantha '#{text}'")
@@ -26,7 +26,7 @@ def self.choosing
   choices = ["Audio on", "Audio off"]
   nav = prompt.select('Please choose 1 for "audio on" and 2 for "audio off".', choices)
   if nav == "Audio on"
-    CommandLineInterface_a.landing_page_a
+    CommandLineInterfaceA.landing_page_a
   else
     CommandLineInterface.landing_page
   end

@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
     if all.map(&:name).include?(username)
       puts 'That username is taken'
       CliStart.sam_say("This username is taken")
+      CliStart.sam_say("What is your username?")
       set_username_a
     else
       username
@@ -13,9 +14,9 @@ class User < ActiveRecord::Base
   end
 
   def self.set_username_a
+    CliStart.sam_say("What is your username?")
     system 'clear'
     prompt = TTY::Prompt.new
-    CliStart.sam_say("What is your username?")
     username = prompt.ask('What is your username?') do |q|
       q.required true
     end
@@ -30,10 +31,10 @@ class User < ActiveRecord::Base
   end
 
   def self.set_password_a
+    CliStart.sam_say("What is your password?")
     prompt = TTY::Prompt.new
     heart = prompt.decorate('❤ ', :red)
     prompt.mask('What is your password?', mask: heart)
-    CliStart.sam_say("What is your password?")
   end
 
   def self.validate_pw_a(confirm, password, username)
@@ -47,17 +48,16 @@ class User < ActiveRecord::Base
   def self.confirm_password_a(username)
     set_pw_page_a(username)
     password = set_password_a
+    CliStart.sam_say("Please confirm your password?")
     prompt = TTY::Prompt.new
     heart = prompt.decorate('❤ ', :red)
     confirm = prompt.mask('Please confirm your password?', mask: heart)
-    CliStart.sam_say("Please confirm your password?")
-    validate_pw_a(confirm, password, username)
+    # validate_pw_a(confirm, password, username)
     password
   end
 
   def self.set_email_a
     prompt = TTY::Prompt.new
-    CliStart.sam_say("What is your email?")
     prompt.ask('What is your email?') do |q|
       q.validate(/\A\w+@\w+\.\w+\Z/) # copied from TTY prompt documentation
       q.messages[:valid?] = CliStart.sam_say("Invalid email address")
@@ -72,8 +72,10 @@ class User < ActiveRecord::Base
   end
 
   def self.create_a_user_a
+    CliStart.sam_say("What is your username?")
     username = set_username
     password = confirm_password_a(username)
+    CliStart.sam_say("What is your email?")
     email = set_email
     user_setup_a(username, password, email)
   end
@@ -97,16 +99,16 @@ class User < ActiveRecord::Base
   end
 
   def self.name_fail_a
-    puts 'That username does not match our records'
     CliStart.sam_say('That username does not match our records')
+    puts 'That username does not match our records'
   end
 
   def self.log_in_a(username_query, password_query)
     if !User.all.map(&:name).include?(username_query.downcase)
       self.name_fail_a
     elsif !User.where('name = ?', username_query).map(&:password).include?(password_query)
-      puts 'Password is incorrect. Try again.'
       CliStart.sam_say('Password is incorrect. Try again.')
+      puts 'Password is incorrect. Try again.'
     else
       User.select('name = ?', username_query && 'password = ?', password_query)
     end
@@ -183,15 +185,17 @@ class User < ActiveRecord::Base
     if tip == nil
       return
     end
-    puts "\n🔹  #{tip.name} 🔹\n\n"
-    CliStart.sam_say("Here's the tip's title: #{tip.name}")
-    puts tip.content.to_s + "\n"
-    CliStart.sam_say("Here's the tip's content: #{tip.content.to_s}")
-    puts "\nYou can read more here: #{tip.url}"
+    content = tip.content.to_s
+    CliStart.sam_say("Here is the tip's title: #{tip.name}")
+    CliStart.sam_say("Here is the tip's content: #{content}")
     CliStart.sam_say("You can read more here: #{tip.url}")
+    puts "\n🔹  #{tip.name} 🔹\n\n"
+    puts tip.content.to_s + "\n"
+    puts "\nYou can read more here: #{tip.url}"
     if tip.how_to != nil
+      howto = tip.how_to
       puts "\nHere's how to do that: " + tip.how_to
-      CliStart.sam_say("Here's how to do that:  #{tip.how_to}")
+      CliStart.sam_say("Here is how to do that:  #{howto}")
     end
     if tip.url == nil
       save_or_back_a(tip, nav)
@@ -232,11 +236,11 @@ class User < ActiveRecord::Base
 
   def category_search_page_a
     system 'clear'
-    CatPageArtA.display
-    prompt = TTY::Prompt.new
-    choices = ["Ruby", "Wellness", "Career", "Social", "Back to Home Page"]
+    CatPageArtA.display_a
     CliStart.sam_say("Which category would you like to view?")
     CliStart.sam_say("Use the arrow keys and enter to choose an option. Top option: Ruby. Second option: wellness. Third option: Career. Fourth option: Social. Bottom option: back to homepage.")
+    prompt = TTY::Prompt.new
+    choices = ["Ruby", "Wellness", "Career", "Social", "Back to Home Page"]
     nav = prompt.select("\nWhich category would you like to view?\n", choices)
     if nav == 'Back to Home Page'
       CommandLineInterfaceA.user_home_page_a(self)

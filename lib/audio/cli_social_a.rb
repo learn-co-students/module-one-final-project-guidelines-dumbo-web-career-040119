@@ -47,7 +47,7 @@ class SocialCliA
     system 'clear'
     self.social_art_a
     results = meetup_api['results']
-    CliStart.sam_say("Here's what's happening around you in tech")
+    CliStart.sam_say("Here is what's happening around you in tech")
     puts "\nHere's what's happening around you in tech:\n\n"
     self.output_a(meetup_api, results, counter)
     self.after_meetups_a(user)
