@@ -6,7 +6,7 @@ Tip.create(
   name: "Golden Rule",
   category: "Ruby",
   title: "Use pry, don’t cry.",
-  content: "Although pry may seem a little counter-intuitive (“why would I stop my process to use pry?!?“), it will save you a lot of trouble if you pry often.",
+  content: "Although pry may seem a little counter-intuitive ('why would I stop my process to use pry?!?'), it will save you a lot of trouble if you pry often.",
   how_to: "Remember to try pry outside a method and INSIDE as well if it does not work.",
   url: "https://tinyurl.com/y5cffgd5",
   user_created: "false"
@@ -104,7 +104,7 @@ Tip.create(
   name: "Getting job interviews in tech.",
   category: "Career",
   title: "I spent 3 months applying to jobs after a coding bootcamp. Here’s what I learned.",
-  content: "A less-talked about part of the bootcamper’s journey is what happens after you graduate — when you’re searching for that six-figure developer position.",
+  content: "A less-talked about part of the bootcamper's journey is what happens after you graduate — when you're searching for that six-figure developer position.",
   url: "https://tinyurl.com/y85k467h",
   user_created: "false"
 )

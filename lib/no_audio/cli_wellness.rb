@@ -177,10 +177,10 @@ require 'nokogiri'
       quote = inspiration_api["contents"]["quotes"][0]["quote"]
       author = inspiration_api["contents"]["quotes"][0]["author"]
       puts "\n\n                                 🔹 🔹 🔹                                       \n\n"
-      printed_quote = "Here is your inspirational quote for today: \n\n '#{quote}'" +  "\n\n                               (#{author})"
+      puts "Here is your inspirational quote for today: \n\n '#{quote}'" +  "\n\n                               (#{author})"
       puts "\n\n                                 🔹 🔹 🔹                                       \n\n"
       prompt = TTY::Prompt.new
-      nav = prompt.select(printed_quote, %w(Back))
+      nav = prompt.select('', %w(Back))
       if nav == "Back"
         WellnessCli.go(user)
       end
@@ -194,10 +194,10 @@ require 'nokogiri'
       quote = management_api["contents"]["quotes"][0]["quote"]
       author = management_api["contents"]["quotes"][0]["author"]
       puts "\n\n                                 🔹 🔹 🔹                                       \n\n"
-      printed_quote = "Here is your management quote for today: \n\n '#{quote}'" +  "\n                            (#{author})"
+      puts "Here is your management quote for today: \n\n '#{quote}'" +  "\n                            (#{author})"
       puts "\n\n                                 🔹 🔹 🔹                                       \n\n"
       prompt = TTY::Prompt.new
-      nav = prompt.select(printed_quote, %w(Back))
+      nav = prompt.select('', %w(Back))
       if nav == "Back"
         WellnessCli.go(user)
       end

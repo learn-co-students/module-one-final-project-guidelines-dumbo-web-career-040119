@@ -1,7 +1,7 @@
 class RubysFantasticFour
 
   def self.computer_love_art
-    puts "
+    puts <<-'EOF'
      _______________                        |*\_/*|________
     |  ___________  |     .-.     .-.      ||_/-\_|______  |
     | |           | |    .****. .****.     | |           | |
@@ -14,7 +14,7 @@ class RubysFantasticFour
      / ********** \                          / ********** \
    /  ************  \                      /  ************  \
   --------------------                    --------------------
-    "
+    EOF
   end
 
   def self.display_methods
@@ -49,8 +49,8 @@ class RubysFantasticFour
     self.computer_love_art
     puts "\n🔹 Here's the most important thing we learned: 🔹 \n\nYou have to nail Ruby's Fantastic Four methods."
     sleep 1
-    RubysFantasticFour.display_methods
-    RubysFantasticFour.after_table(user)
+    self.display_methods
+    self.after_table(user)
   end
 
 end

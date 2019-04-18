@@ -107,13 +107,15 @@ class User < ActiveRecord::Base
 
   def users_label
     prompt = TTY::Prompt.new
-    users_label = prompt.ask("\nHow would you like to label this tip?")
+    puts "\n"
+    users_label = prompt.ask("How would you like to label this tip?")
     users_label
   end
 
   def users_comment
     prompt = TTY::Prompt.new
-    users_comment = prompt.ask("\nIs there any comment you'd like to add for youself?")
+    puts "\n"
+    users_comment = prompt.ask("Is there any comment you'd like to add for youself?")
     users_comment
   end
 
@@ -204,9 +206,15 @@ class User < ActiveRecord::Base
     choices.push('Exit to Home Page')
     system 'clear'
     choice = prompt.select("Choose a tip.\n", choices, per_page: 10)
-    self.category_search_page if choice == 'Back'
-    self.category_tips(nav) if choice == 'See More'
-    CommandLineInterface.user_home_page(self) if choice == 'Exit to Home Page'
+    if choice == 'Back'
+      self.category_search_page
+    end
+    if choice == 'See More'
+      self.category_tips(nav)
+    end
+    if choice == 'Exit to Home Page'
+      CommandLineInterface.user_home_page(self)
+    end
     tip = tip_result(choice)[0]
     chosen_tip(tip, nav)
   end
