@@ -41,12 +41,12 @@ Tip.create(
   user_created: "false"
 )
 
-Tip.create(
-  name: "Hash me outside",
-  category: "Ruby",
-  title: "Don't iterate over hashes. What for? Just split them into arrays 🙄.",
-  user_created: "false"
-)
+# Tip.create(
+#   name: "Hash me outside",
+#   category: "Ruby",
+#   title: "Don't iterate over hashes. What for? Just split them into arrays 🙄.",
+#   user_created: "false"
+# )
 
 Tip.create(
   name: "Floating around",

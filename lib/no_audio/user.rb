@@ -111,15 +111,13 @@ class User < ActiveRecord::Base
   def users_label
     prompt = TTY::Prompt.new
     puts "\n"
-    users_label = prompt.ask("How would you like to label this tip?")
-    users_label
+    prompt.ask("How would you like to label this tip?")
   end
 
   def users_comment
     prompt = TTY::Prompt.new
     puts "\n"
-    users_comment = prompt.ask("Is there any comment you'd like to add for youself?")
-    users_comment
+    prompt.ask("Is there any comment you'd like to add for youself?")
   end
 
   def save_tip_from_search(new_tip)
