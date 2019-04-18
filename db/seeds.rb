@@ -6,7 +6,7 @@ Tip.create(
   name: "Golden Rule",
   category: "Ruby",
   title: "Use pry, don’t cry.",
-  content: "Although pry may seem a little counter-intuitive (“why would I stop my process to use pry?!?“), it will save you a lot of trouble if you pry often.",
+  content: "Although pry may seem a little counter-intuitive ('why would I stop my process to use pry?!?'), it will save you a lot of trouble if you pry often.",
   how_to: "Remember to try pry outside a method and INSIDE as well if it does not work.",
   url: "https://tinyurl.com/y5cffgd5",
   user_created: "false"
@@ -73,7 +73,7 @@ Tip.create(
   category: "Ruby",
   title: "There's a method in this madness.",
   content: "Sometimes it may be difficult to choose which of the Fantastic Four (map, select, find, each) to use.",
-  how_to: `1. Are you trying to choose a few elements out of an array? Select or map may be your best choice (see next steps).\n1a. Do you have any kind of comparison (e.g. name == "XYZ")? If so, you want to use select.\n1b. If not or if you want to get a specific part of each given instance (e.g. 'show only names'), then map.\n2. Are you looking for the first thing that fulfills some condition? Go with find.\n3. If any of the above satisfies you, if you're not getting the result you want to or if you're just lazy, resort to each (though remember that it shows poor character)`,
+  how_to: "1. Are you trying to choose a few elements out of an array? Select or map may be your best choice (see next steps).\n1a. Do you have any kind of comparison (e.g. name == 'XYZ')? If so, you want to use select.\n1b. If not or if you want to get a specific part of each given instance (e.g. 'show only names'), then map.\n2. Are you looking for the first thing that fulfills some condition? Go with find.\n3. If any of the above satisfies you, if you're not getting the result you want to or if you're just lazy, resort to each (though remember that it shows poor character)",
   url: "https://tinyurl.com/y3ywcuob",
   user_created: "false"
 )
