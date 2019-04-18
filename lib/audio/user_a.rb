@@ -115,16 +115,16 @@ class User < ActiveRecord::Base
   end
 
   def users_label_a
+    CliStart.sam_say("How would you like to label this tip?")
     prompt = TTY::Prompt.new
     users_label = prompt.ask("\nHow would you like to label this tip?")
-    CliStart.sam_say("How would you like to label this tip?")
     users_label_a
   end
 
   def users_comment_a
+    CliStart.sam_say("Is there any comment you'd like to add for youself?")
     prompt = TTY::Prompt.new
     users_comment = prompt.ask("\nIs there any comment you'd like to add for youself?")
-    CliStart.sam_say("Is there any comment you'd like to add for youself?")
     users_comment_a
   end
 
@@ -133,8 +133,11 @@ class User < ActiveRecord::Base
     system 'clear'
     puts "\n🔹  #{new_tip.name.to_s} 🔹"
     puts "\n\n" + new_tip.content.to_s + "\n\n"
-    CliStart.sam_say("#{new_tip.name.to_s}")
-    CliStart.sam_say("#{new_tip.content.to_s}")
+    name = new_tip.name.to_s
+    content = new_tip.content.to_s
+    CliStart.sam_say("#{name}")
+    CliStart.sam_say("#{content}")
+    sleep (0.5)
     CliStart.sam_say("Use the arrow keys and enter to choose an option. Top option: save the tip. Second option: go back. Bottom option: exit to homepage.")
     choices = ["Save the Tip", "Back", "Exit to Home Page"]
     save_or_back = prompt.select('', choices)
@@ -144,6 +147,7 @@ class User < ActiveRecord::Base
     elsif save_or_back == 'Back'
       RubyTips.ask_to_exit_a(self)
     else
+      CliStart.sam_say("You are on the Ruby category page. Use arrows to choose first option to see Ruby tips, second to go to Ruby's Fantastic Four, third to search the web for a Ruby question, and fourth to go back to the homepage.")
       RubyTips.ruby_nav_a(self)
     end
   end
@@ -185,17 +189,23 @@ class User < ActiveRecord::Base
     if tip == nil
       return
     end
-    content = tip.content.to_s
-    name = tip.name
-    url = tip.url
-    CliStart.sam_say("Here is the tip's title: #{name}")
-    CliStart.sam_say("Here is the tip's content: #{content}")
+    content = tip.content.to_s.gsub(/'s/, ' is').gsub(/\n/, '')
+    if tip.title != nil
+      name = tip.title.gsub(/'s/, ' is').gsub(/\n/, '')
+    else
+      name = tip.name.gsub(/'s/, ' is').gsub(/\n/, '')
+    end
+    if tip.url != nil
+      url = tip.url.gsub(/'s/, ' is').gsub(/\n/, '')
+    end
+    CliStart.sam_say("Here is the tips title: #{name}")
+    CliStart.sam_say("Here is the tips content: #{content}")
     CliStart.sam_say("You can read more here: #{url}")
     puts "\n🔹  #{tip.name} 🔹\n\n"
     puts tip.content.to_s + "\n"
     puts "\nYou can read more here: #{tip.url}"
     if tip.how_to != nil
-      howto = tip.how_to
+      howto = tip.how_to.gsub(/'s/, ' is').gsub(/\n/, '')
       puts "\nHere's how to do that: " + tip.how_to
       CliStart.sam_say("Here is how to do that:  #{howto}")
     end
@@ -227,7 +237,12 @@ class User < ActiveRecord::Base
     choices.push('Back')
     choices.push('Exit to Home Page')
     system 'clear'
+    choices_a = choices.each {|choice| choice.gsub(/'s/, ' is').gsub(/\n/, '')}
     CliStart.sam_say("Choose a tip.")
+    counter = 0
+    choices_a.each do |choice|
+      CliStart.sam_say("#{counter +=1} #{choice}")
+    end
     choice = prompt.select("Choose a tip.\n", choices, per_page: 5)
     self.category_search_page_a if choice == 'Back'
     self.category_tips_a(nav) if choice == 'See More'
@@ -249,6 +264,7 @@ class User < ActiveRecord::Base
     elsif nav == 'Wellness'
       WellnessCliA.go_a(self)
     elsif nav == 'Ruby'
+      CliStart.sam_say("You are on the Ruby category page. Use arrows to choose first option to see Ruby tips, second to go to Ruby's Fantastic Four, third to search the web for a Ruby question, and fourth to go back to the homepage.")
       RubyTipsA.ruby_nav_a(self)
     elsif nav == 'Social'
       SocialCliA.random_meetup_a(self)
@@ -309,7 +325,9 @@ class User < ActiveRecord::Base
     puts  '──────────────────────────────────'
     puts "\n Looks like you haven't saved any tips yet!"
     CliStart.sam_say("Looks like you haven't saved any tips yet!")
+    sleep (0.5)
     CliStart.alex_say("This page features a picture of confused face composed out of different characters such as brackets.")
+    sleep (0.5)
 
 
   end
@@ -323,7 +341,7 @@ class User < ActiveRecord::Base
       # Add an animation if ther are no saved tips#
       self.empty_directory_a
       puts 'You currently have no saved tips. Choose "More" to find new ones!'
-      CliStart.sam_say("You currently have no saved tips. Choose the option More on your homepage to find new ones!")
+      CliStart.sam_say("You currently have no saved tips. Choose the optiongo back to your homepage and use the option more to find new ones!")
       CommandLineInterfaceA.user_home_page_a(self)
     else
       output

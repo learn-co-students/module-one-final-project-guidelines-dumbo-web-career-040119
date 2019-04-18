@@ -33,7 +33,7 @@ class CommandLineInterfaceA
       EOF
       # puts logo
     puts art
-    puts "                  [audio announcement playing, text will proceed]"
+    puts "           [audio announcement playing, text will proceed]"
     CliStart.sam_say('You are now on the landing page of Thrive. Tips to survive web dev bootcamp.')
     CliStart.alex_say('This landing page features a picture of a tree composed out of different characters such as brackets. The tree has many branches, leaves, roots and appears strong and well-grounded.')
   end
@@ -122,7 +122,8 @@ class CommandLineInterfaceA
 
   ################ Home Page Upon Signup & Login ################
   def self.temp_home_page_a(user)
-    CliStart.sam_say('Hello. You are on the homepage. Here is todays tip: Although pry may seem a little counter-intuitive (why would I stop my process to use pry?!?), it will save you a lot of trouble if you pry often.')
+    puts "           [audio announcement playing, text will proceed]"
+    CliStart.sam_say('Hello. You are on the homepage. Here is todays tip: Although pry may seem a little counter-intuitive (for instance, you may think why would I stop my process to use pry?!?), it will save you a lot of trouble if you pry often.')
     sleep (0.5)
     CliStart.sam_say('Use arrows to choose first option to explore more tips, second option to access your saved tips and third to logout.')
     prompt = TTY::Prompt.new

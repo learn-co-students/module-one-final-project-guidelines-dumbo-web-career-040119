@@ -21,7 +21,7 @@ class SocialCliA
     CliStart.alex_say("This page features a picture a computer composed out of different characters such as brackets. The computer screen shows the sign: make some friends.")
   end
 
-  def self.output_a(meetup_api, results, counter)
+  def self.output_a(meetup_api, results)
     results = meetup_api['results']
     num = rand(1...20)
     if results[num]['name'] != nil
@@ -34,11 +34,14 @@ class SocialCliA
       meetup_url = results[num]['event_url']
     end
     if results[num]['name'] != nil && results[num]['description'] != nil && results[num]['event_url'] != nil
-      puts "#{counter}. " + '🔹  ' + meetup_name + ' 🔹' + "\n What: " + meetup_description + '(...)' + "\n RSVP: " + meetup_url + "\n\n"
-      CliStart.sam_say("Meetup name: #{meetup_name}. Meetup desscription: #{meetup_description}. RSVP: #{meetup_url}")
+      puts '🔹  ' + meetup_name + ' 🔹' + "\n What: " + meetup_description + '(...)' + "\n RSVP: " + meetup_url + "\n\n"
+      name = meetup_name.gsub(/'s/, ' is').gsub(/\n/, '')
+      description = meetup_description.gsub(/'s/, ' is').gsub(/\n/, '')
+      url = meetup_url.gsub(/'s/, ' is').gsub(/\n/, '')
+      CliStart.sam_say("Meetup name: #{name}. Meetup desscription: #{description}. RSVP: #{url}")
 
     else
-      self.output_a(meetup_api, results, counter)
+      self.output_a(meetup_api, results)
     end
   end
 
@@ -49,14 +52,14 @@ class SocialCliA
     results = meetup_api['results']
     CliStart.sam_say("Here is what's happening around you in tech")
     puts "\nHere's what's happening around you in tech:\n\n"
-    self.output_a(meetup_api, results, counter)
+    self.output_a(meetup_api, results)
+    CliStart.sam_say("What do you want to do next? Choose top option to see next meetup and bottom one to go back to your homepage")
     self.after_meetups_a(user)
   end
 
   def self.after_meetups_a(user)
     prompt = TTY::Prompt.new
     nav = prompt.select('What do you want to do next?', %w[More Back])
-    CliStart.sam_say("What do you want to do next? Choose top option to see next meetup and bottom one to go back to your homepage")
     if nav == 'More'
       self.random_meetup_a(user)
     else

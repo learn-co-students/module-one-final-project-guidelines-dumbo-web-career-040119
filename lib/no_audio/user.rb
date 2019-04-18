@@ -120,7 +120,7 @@ class User < ActiveRecord::Base
   def save_tip_from_search(new_tip)
     prompt = TTY::Prompt.new
     system 'clear'
-    puts "\n🔹  #{new_tip.name.to_s} 🔹"
+    puts "\n🔹  #{new_tip.title.to_s} 🔹"
     puts "\n\n" + new_tip.content.to_s + "\n\n"
     choices = ["Save the Tip", "Back", "Exit to Home Page"]
     save_or_back = prompt.select('', choices)

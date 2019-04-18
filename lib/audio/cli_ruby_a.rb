@@ -39,7 +39,7 @@ class RubyTipsA
   end
 
   def self.ruby_nav_a(user)
-    CliStart.sam_say("You are on the Ruby category page. Use arrows to choose first option to see Ruby tips, second to go to Ruby's Fantastic Four, third to search the web for a Ruby question, and fourth to go back to the homepage.")
+    CliStart.sam_say("You are on the Ruby Tips page. Use arrows to choose first option to search again, second to go back to Ruby category and third to go back to the homepage.")
     prompt = TTY::Prompt.new
     system 'clear'
     choices = ["Tips", "Fantastic Four", "Search the Web", "Back"]
