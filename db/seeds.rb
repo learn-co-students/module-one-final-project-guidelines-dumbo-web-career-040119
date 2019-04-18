@@ -18,7 +18,7 @@ Tip.create(
   title: "Errors are your friends.",
   url: "https://ruby-doc.org/core-2.2.0/Exception.html",
   content: "An error is nothing more than Ruby's version of open communication and constructive feedback. It tells you where it hurts!",
-  how_to: "\nDon’t freak out when you see the error. Just read it. And then again.\nThings to pay attention to:\n   - check the file name and the line number, like here:'./lib/ruby_tips.rb:9';\n   - check the error type, like here: '(NameError)';\n   - check both in your code and if that doesn't help - Google!",
+  how_to: "\n Don’t freak out when you see the error. Just read it. And then again.\n Things to pay attention to:\n    - check the file name and the line number, like here:'./lib/ruby_tips.rb:9';\n    - check the error type, like here: '(NameError)';\n    - check both in your code and if that doesn't help - Google!",
   user_created: "false"
 )
 
@@ -27,13 +27,13 @@ Tip.create(
   category: "Ruby",
   title: "Name your variables and name them right.",
   content: "Simple as that: if you name your variables right, debugging and refactoring will be easy-peasy.",
-  how_to: "Be descriptive (but not overly) so that your future self will exactly know where to look for what.\nPssst, remember that class variables have two @ signs in their name (@@), while instance variables just have one (@).",
+  how_to: "Be descriptive (but not overly) so that your future self will exactly know where to look for what.\n By the way, remember that class variables have two @ signs in their name (@@), while instance variables just have one (@).",
   url: "https://tinyurl.com/y6ludg3o",
   user_created: "false"
 )
 
 Tip.create(
-  name: "And you, what's your datatype?",
+  name: "And you, what is your datatype?",
   category: "Ruby",
   title: "Make sure you know what datatype your variables (and arguments) are.",
   content: "Imagine debugging for an hour just to later learn that the variable you passed in a method as an argument is a string, not an array.",
@@ -62,7 +62,7 @@ Tip.create(
   name: "Single Source of Truth",
   category: "Ruby",
   title: "I will tell the truth, the whole truth and nothing but the truth.",
-  content: "When designing your domain in OO Ruby, make sure that every piece of data is saved JUST ONCE in ONE place.\nOther places may use this data but it should live only in one place. Otherwise you'll spend hours debugging.",
+  content: "When designing your domain in OO Ruby, make sure that every piece of data is saved JUST ONCE in ONE place.\n Other places may use this data but it should live only in one place. Otherwise you'll spend hours debugging.",
   how_to: "Use a whiteboard A LOT, mark all the relations and try to challenge your assumptions.",
   url: "https://tinyurl.com/y4wb2dc7",
   user_created: "false"
@@ -71,9 +71,9 @@ Tip.create(
 Tip.create(
   name: "Select vs map vs find vs each",
   category: "Ruby",
-  title: "There's a method in this madness.",
+  title: "There is a method in this madness.",
   content: "Sometimes it may be difficult to choose which of the Fantastic Four (map, select, find, each) to use.",
-  how_to: "1. Are you trying to choose a few elements out of an array? Select or map may be your best choice (see next steps).\n1a. Do you have any kind of comparison (e.g. name == 'XYZ')? If so, you want to use select.\n1b. If not or if you want to get a specific part of each given instance (e.g. 'show only names'), then map.\n2. Are you looking for the first thing that fulfills some condition? Go with find.\n3. If any of the above satisfies you, if you're not getting the result you want to or if you're just lazy, resort to each (though remember that it shows poor character)",
+  how_to: "1. Are you trying to choose a few elements out of an array? Select or map may be your best choice (see next steps).\n 1a. Do you have any kind of comparison (e.g. name == XYZ)? If so, you want to use select.\n 1b. If not or if you want to get a specific part of each given instance (e.g. show only names), then map.\n 2. Are you looking for the first thing that fulfills some condition? Go with find.\n 3. If any of the above satisfies you, if you are not getting the result you want to or if you are just lazy, resort to each (though remember that it shows poor character)",
   url: "https://tinyurl.com/y3ywcuob",
   user_created: "false"
 )
