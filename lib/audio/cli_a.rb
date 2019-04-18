@@ -33,7 +33,7 @@ class CommandLineInterface
       # puts logo
     puts art
     CliStart.sam_say("You are now on the landing page of Thrive. Tips to survive web dev bootcamp.")
-    CliStart.alex_say("The landing page features a picture of a tree composed out of different characters such as brackets. The tree has many branches, leaves, roots and appears strong and well-grounded.")
+    CliStart.alex_say("This landing page features a picture of a tree composed out of different characters such as brackets. The tree has many branches, leaves, roots and appears strong and well-grounded.")
   end
 
   ### Enabled here, as a class method - to be called anywhere ###
