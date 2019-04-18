@@ -104,7 +104,7 @@ Tip.create(
   name: "Getting job interviews in tech.",
   category: "Career",
   title: "I spent 3 months applying to jobs after a coding bootcamp. Here’s what I learned.",
-  content: "A less-talked about part of the bootcamper’s journey is what happens after you graduate — when you’re searching for that six-figure developer position.",
+  content: "A less-talked about part of the bootcamper's journey is what happens after you graduate — when you're searching for that six-figure developer position.",
   url: "https://tinyurl.com/y85k467h",
   user_created: "false"
 )
