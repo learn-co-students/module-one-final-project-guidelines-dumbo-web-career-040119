@@ -17,6 +17,7 @@ class CatPageArtA
 
    EOF
     art
+    puts "[audio announcement playing, text will proceed]"
     CliStart.alex_say("This page features a picture of flowers composed out of different characters such as brackets. The flowers make the page seem more joyful.")
   end
 
@@ -25,21 +26,22 @@ class CatPageArtA
 
 
          .{{}}}}}}.
-        {{{{{{(`)}}}.
-       {{{(`)}}}}}}}}}
-      }}}}}}}}}{{(`){{{
-      }}}}{{{{(`)}}{{{{
-     {{{(`)}}}}}}}{}}}}}
-    {{{{{{{{(`)}}}}}}}}}}
-    {{{{{{{}{{{{(`)}}}}}}
-     {{{{{(`)   {{{{(`)}
-       `""" |   | ""`
-      (`)  /     \
+        {{{{{{(")}}}.
+       {{{(")}}}}}}}}}
+      }}}}}}}}}{{("){{{
+      }}}}{{{{(")}}{{{{
+     {{{(")}}}}}}}{}}}}}
+    {{{{{{{{(")}}}}}}}}}}
+    {{{{{{{}{{{{(")}}}}}}
+     {{{{{(")   {{{{(")}
+       """" |   | """
+      (")  /     \
      ~~~~~~~~~~~~~~~~~~~
 
 
   EOF
     art
+    puts "[audio announcement playing, text will proceed]"
     CliStart.alex_say("This page features a picture of an apple tree composed out of different characters such as brackets. The tree looks as if drawn by a child.")
   end
 
@@ -58,6 +60,7 @@ class CatPageArtA
 
   EOF
     art
+    puts "[audio announcement playing, text will proceed]"
     CliStart.alex_say("This page features a picture of flowers composed out of different characters such as brackets. The flowers seem orderly and healthy.")
   end
 
@@ -65,23 +68,24 @@ class CatPageArtA
     art = puts <<-'EOF'
 
          ,            __ \/ __
-     /\^/`\          /o \{}/ o\   If I had a flower for each time
+     /\^/"\          /o \{}/ o\   If I had a flower for each time
     | \/   |         \   ()   /     I thought of hashes, my garden
-    | |    |          `> /\ <`   ,,,     would be full...
+    | |    |          "> /\ <"   ,,,     would be full...
     \ \    /  @@@@    (o/\/\o)  {{{}}                 _ _
      '\\//'  @@()@@  _ )    (    ~Y~       @@@@     _{ ' }_
-       ||     @@@@ _(_)_   wWWWw .oOOo.   @@()@@   { `.!.` }
+       ||     @@@@ _(_)_   wWWWw .oOOo.   @@()@@   { ".!." }
        ||     ,/  (_)@(_)  (___) OO()OO    @@@@  _ ',_/Y\_,'
        ||  ,\ | /)  (_)\     Y   'OOOO',,,(\|/ _(_)_ {_,_}
-   |\  ||  |\\|// vVVVv`|/@@@@    _ \/{{}}}\| (_)@(_)  |  ,,,
+   |\  ||  |\\|// vVVVv"|/@@@@    _ \/{{}}}\| (_)@(_)  |  ,,,
    | | ||  | |;,,,(___) |@@()@@ _(_)_| ~Y~ wWWWw(_)\ (\| {{{}}
    | | || / / {{}}} Y  \| @@@@ (_)#(_) \|  (___)   |  \| /~Y~
     \ \||/ /\\|~Y~ \|/  | \ \/  /(_) |/ |/   Y    \|/  |//\|/
-jgs\ `\\//`,.\|/|//.|/\\|/\\|,\|/ //\|/\|.\\\| // \|\\ |/,\|/
+jgs\ "\\//",.\|/|//.|/\\|/\\|,\|/ //\|/\|.\\\| // \|\\ |/,\|/
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   EOF
     art
+    puts "[audio announcement playing, text will proceed]"
     CliStart.alex_say("This page features a picture of a garden including flowers, bees and a butterfly composed out of different characters such as brackets. There is a sign that reads: If I had a flower for each time I thought of hashes, my garden would be full.")
   end
 
@@ -103,6 +107,7 @@ jgs\ `\\//`,.\|/|//.|/\\|/\\|,\|/ //\|/\|.\\\| // \|\\ |/,\|/
 
   EOF
     art
+    puts "[audio announcement playing, text will proceed]"
     CliStart.alex_say("This page features a picture of an old-fashion computer composed out of different characters such as brackets. The computer is unplugged and its screen is empty. There is a sign that reads: Computer says no.")
   end
 
@@ -126,6 +131,7 @@ jgs\ `\\//`,.\|/|//.|/\\|/\\|,\|/ //\|/\|.\\\| // \|\\ |/,\|/
 
   EOF
     art
+    puts "[audio announcement playing, text will proceed]"
     CliStart.alex_say("This page features a picture of two computers composed out of different characters such as brackets. The computers have smiley faces on their screens. The computer on the right seems to be female and the one on the right a male. There is a big heart between them indicating growing affection.")
   end
 

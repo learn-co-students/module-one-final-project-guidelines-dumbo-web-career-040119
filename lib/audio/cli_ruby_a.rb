@@ -1,9 +1,9 @@
 class RubyTipsA
 
   def self.google_search_a(user)
+    CliStart.sam_say("What Ruby topic would you like to search? Write your keyword.")
     prompt = TTY::Prompt.new
     query = prompt.ask("What Ruby topic would you like to search?")
-    CliStart.sam_say("What Ruby topic would you like to search? Write your keyword.")
     html = open("https://www.google.com/search?q=Ruby #{query}")
     doc = Nokogiri::HTML(html)
 
@@ -25,8 +25,8 @@ class RubyTipsA
 
 
   def self.ask_to_exit_a(user)
-    prompt = TTY::Prompt.new
     CliStart.sam_say("You are on the Ruby Tips page. Use arrows to choose first option to search again, second to go back to Ruby category and third to go back to the homepage.")
+    prompt = TTY::Prompt.new
     choices = ["Search Again", "Back", "Exit to Home Page"]
     nav = prompt.select('', choices)
     if nav == "Search Again"
@@ -39,9 +39,9 @@ class RubyTipsA
   end
 
   def self.ruby_nav_a(user)
+    CliStart.sam_say("You are on the Ruby category page. Use arrows to choose first option to see Ruby tips, second to go to Ruby's Fantastic Four, third to search the web for a Ruby question, and fourth to go back to the homepage.")
     prompt = TTY::Prompt.new
     system 'clear'
-    CliStart.sam_say("You are on the Ruby category page. Use arrows to choose first option to see Ruby tips, second to go to Ruby's Fantastic Four, third to search the web for a Ruby question, and fourth to go back to the homepage.")
     choices = ["Tips", "Fantastic Four", "Search the Web", "Back"]
     nav = prompt.select("\nWe have some great Ruby Tips! You can also search for more.\n", choices)
     if nav == 'Tips'

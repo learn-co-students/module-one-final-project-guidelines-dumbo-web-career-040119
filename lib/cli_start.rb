@@ -14,7 +14,7 @@ end
 
 def self.welcome
   puts "Welcome to Thrive. [audio announcement playing, text will proceed]"
-  self.sam_say('Welcome to Thrive. An app to help you go through a bootcamp. Would you like audio on or off?')
+  self.sam_say('Welcome to Thrive. An app to help you go through a coding bootcamp. Would you like audio on or off?')
   sleep (0.03)
   self.sam_say('Please choose the top option for audio on. And bottom option for audio off.')
   self.choosing

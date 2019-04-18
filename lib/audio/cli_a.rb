@@ -7,6 +7,7 @@ class CommandLineInterfaceA
   def self.logo_art_a
     # logo = puts "//".colorize(:cyan) + " ♥".colorize(:red)
     art = puts <<-'EOF'
+
              ████████╗██╗  ██╗██████╗ ██╗██╗   ██╗███████╗
              ╚══██╔══╝██║  ██║██╔══██╗██║██║   ██║██╔════╝
                 ██║   ███████║██████╔╝██║██║   ██║█████╗
@@ -20,26 +21,27 @@ class CommandLineInterfaceA
                       #   ###  \/###|/ \/ # ###
                        ###_\_\_\## | #/###_/_####
                       ## #### # \ #| /  #### ##/##
-                 #  ###__#_--###`  |{,###---###-~####
+                 #  ###__#_--###'  |{,###---###-~####
                                  \ }{
                                   }}{
                                   }}{
                                   {{}
                              , -=-~{ .-^- _
-                                  `}
+                                  '}
                                    {
                   TIPS TO SURVIVE WEB DEV BOOTCAMP
       EOF
       # puts logo
     puts art
-    CliStart.sam_say("You are now on the landing page of Thrive. Tips to survive web dev bootcamp.")
-    CliStart.alex_say("This landing page features a picture of a tree composed out of different characters such as brackets. The tree has many branches, leaves, roots and appears strong and well-grounded.")
+    puts "                  [audio announcement playing, text will proceed]"
+    CliStart.sam_say('You are now on the landing page of Thrive. Tips to survive web dev bootcamp.')
+    CliStart.alex_say('This landing page features a picture of a tree composed out of different characters such as brackets. The tree has many branches, leaves, roots and appears strong and well-grounded.')
   end
 
   ### Enabled here, as a class method - to be called anywhere ###
   def self.exit_a
     puts "\n❤  Come back soon ❤\n"
-    CliStart.sam_say("Come back soon")
+    CliStart.sam_say('Come back soon')
     system 'exit!'
   end
 
@@ -47,8 +49,8 @@ class CommandLineInterfaceA
   ############# Next 4 methods pertain to login #################
   def self.fail_name_check_a
     puts "That name does not match our records"
-    CliStart.sam_say("That name does not match our records")
-    CliStart.sam_say("Select top option to try again and bottom option to go back to the homepage")
+    CliStart.sam_say('That name does not match our records')
+    CliStart.sam_say('Select top option to try again and bottom option to go back to the homepage')
     system 'clear'
     self.logo_art
     prompt = TTY::Prompt.new
@@ -62,7 +64,7 @@ class CommandLineInterfaceA
 
   def self.fail_pw_check_a(username_query)
     puts "Incorrect password"
-    CliStart.sam_say("Incorrect password. Top option - try again, bottom option - go back.")
+    CliStart.sam_say('Incorrect password. Top option - try again, bottom option - go back.')
     prompt = TTY::Prompt.new
     nav = prompt.select('', %w(Retry? Back))
     if nav == "Retry?"
@@ -78,7 +80,7 @@ class CommandLineInterfaceA
     prompt = TTY::Prompt.new
     self.logo_art_a
     puts "\n"
-    CliStart.sam_say("What is your username?")
+    CliStart.sam_say('What is your username?')
     username_query = prompt.ask("Username:")
     if username_query == 'nil'
       User.name_fail_a
@@ -93,8 +95,8 @@ class CommandLineInterfaceA
     system 'clear'
     puts "\n"
     puts "Username: " + username_query
-    CliStart.sam_say("Your username is #{username_query}")
-    CliStart.sam_say("Please write your password")
+    CliStart.sam_say('Your username is #{username_query}')
+    CliStart.sam_say('Please write your password')
     prompt = TTY::Prompt.new
     heart = prompt.decorate('❤ ', :red)
     password_query = prompt.mask("Password:", mask: heart).downcase
@@ -106,7 +108,7 @@ class CommandLineInterfaceA
   def self.user_home_page_a(user)
     prompt = TTY::Prompt.new
     system 'clear'
-    CliStart.sam_say("You are on the homepage. Use arrows to choose first option to explore more tips, second option to access your saved tips and third to logout.")
+    CliStart.sam_say('You are on the homepage. Use arrows to choose first option to explore more tips, second option to access your saved tips and third to logout.')
     choices = ["More Tips", "Saved Tips", "Logout"]
     nav = prompt.select("\n", choices)
     if nav == "More Tips"
@@ -120,14 +122,14 @@ class CommandLineInterfaceA
 
   ################ Home Page Upon Signup & Login ################
   def self.temp_home_page_a(user)
+    CliStart.sam_say('Hello. You are on the homepage. Here is todays tip: Although pry may seem a little counter-intuitive (why would I stop my process to use pry?!?), it will save you a lot of trouble if you pry often.')
+    sleep (0.5)
+    CliStart.sam_say('Use arrows to choose first option to explore more tips, second option to access your saved tips and third to logout.')
     prompt = TTY::Prompt.new
     system 'clear'
     puts "Hello"
-    todays_tip = Tip.first.content
-    CliStart.sam_say("Hello. You are on the homepage. Here is today's tip: #{todays_tip}.")
     choices = ["More Tips", "Saved Tips", "Logout"]
     nav = prompt.select("\n🔹  Here's today's tip: 🔹\n\n#{Tip.first.content}\n", choices)
-    CliStart.sam_say("Use arrows to choose first option to explore more tips, second option to access your saved tips and third to logout.")
     if nav == "More Tips"
       user.select_a_tip_a
     elsif nav == "Saved Tips"
@@ -143,9 +145,8 @@ class CommandLineInterfaceA
   def self.landing_page_a
     system 'clear'
     self.logo_art_a
-    puts "Welcome to Thrive"
-    CliStart.sam_say("What would you like to do?")
-    CliStart.sam_say("Use arrows to choose first option to create an account, second option to login and third to exit the app.")
+    CliStart.sam_say('What would you like to do?')
+    CliStart.sam_say('Use arrows to choose first option to create an account, second option to login and third to exit the app.')
     prompt = TTY::Prompt.new
     nav = prompt.select("\nWhat would you like to do?", %w(Create Login Exit))
     if nav == "Create"
@@ -154,7 +155,7 @@ class CommandLineInterfaceA
     elsif nav == "Login"
       self.log_in_name_a
     elsif nav == "Exit"
-      CommandLineInterfaceA.exit
+      CommandLineInterfaceA.exit_a
     end
   end
 end

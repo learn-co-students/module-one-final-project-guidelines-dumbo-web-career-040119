@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
   end
 
   def self.name_fail_a
-    CliStart.sam_say('That username does not match our records')
+    CliStart.sam_say("That username does not match our records")
     puts 'That username does not match our records'
   end
 
@@ -107,7 +107,7 @@ class User < ActiveRecord::Base
     if !User.all.map(&:name).include?(username_query.downcase)
       self.name_fail_a
     elsif !User.where('name = ?', username_query).map(&:password).include?(password_query)
-      CliStart.sam_say('Password is incorrect. Try again.')
+      CliStart.sam_say("Password is incorrect. Try again.")
       puts 'Password is incorrect. Try again.'
     else
       User.select('name = ?', username_query && 'password = ?', password_query)
@@ -186,9 +186,11 @@ class User < ActiveRecord::Base
       return
     end
     content = tip.content.to_s
-    CliStart.sam_say("Here is the tip's title: #{tip.name}")
+    name = tip.name
+    url = tip.url
+    CliStart.sam_say("Here is the tip's title: #{name}")
     CliStart.sam_say("Here is the tip's content: #{content}")
-    CliStart.sam_say("You can read more here: #{tip.url}")
+    CliStart.sam_say("You can read more here: #{url}")
     puts "\n🔹  #{tip.name} 🔹\n\n"
     puts tip.content.to_s + "\n"
     puts "\nYou can read more here: #{tip.url}"
@@ -348,8 +350,9 @@ class User < ActiveRecord::Base
 
       choices = the_labels.map do |user_dir|
         tip = Tip.where('id = ?', user_dir.tip_id)[0]
+        content = tip.content
         "#{counter += 1}. #{tip.content}"
-        CliStart.sam_say("#{counter += 1}. #{tip.content}")
+        CliStart.sam_say("#{counter += 1}. #{content}")
       end
 
       prompt = TTY::Prompt.new

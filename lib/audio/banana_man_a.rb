@@ -343,7 +343,7 @@ class BananaManA
   def self.after_animation_a(user)
     prompt = TTY::Prompt.new
     prompt.select('', %w(Back))
-    user.category_search_page
+    WellnessCliA.wellness_options_a(user)
   end
 
   def self.go_a(user)
