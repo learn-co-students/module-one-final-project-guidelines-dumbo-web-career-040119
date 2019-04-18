@@ -27,7 +27,7 @@ Tip.create(
   category: "Ruby",
   title: "Name your variables and name them right.",
   content: "Simple as that: if you name your variables right, debugging and refactoring will be easy-peasy.",
-  how_to: "Be descriptive (but not overly) so that your future self will exactly know where to look for what.\n By the way, remember that class variables have two @ signs in their name (@@), while instance variables just have one (@).",
+  how_to: "Be descriptive (but not overly) so that your future self will know exactly where to look for what.\n By the way, remember that class variables have two @ signs in their name (@@), while instance variables just have one (@).",
   url: "https://tinyurl.com/y6ludg3o",
   user_created: "false"
 )

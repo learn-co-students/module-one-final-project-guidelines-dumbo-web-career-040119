@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_many :directories
   has_many :tips, through: :directories
 
+  ############################## Sign Up Methods ###############################
   def self.check_username(username)
     if all.map(&:name).include?(username)
       puts 'That username is taken'
@@ -73,6 +74,7 @@ class User < ActiveRecord::Base
     user_setup(username, password, email)
   end
 
+  ############################### Log In Methods ###############################
   def self.check_password(username_query, password_query)
     user = where('name = ?', username_query)
     if user[0].password == password_query
@@ -105,6 +107,7 @@ class User < ActiveRecord::Base
     end
   end
 
+  ###################### Save Tip, Label, and Comment ##########################
   def users_label
     prompt = TTY::Prompt.new
     puts "\n"
@@ -167,6 +170,7 @@ class User < ActiveRecord::Base
     end
   end
 
+  ############################ Navigation Methods ##############################
   def chosen_tip(tip, nav)
     if tip == nil
       return

@@ -34,8 +34,6 @@ class CommandLineInterfaceA
       # puts logo
     puts art
     puts "           [audio announcement playing, text will proceed]"
-    CliStart.sam_say('You are now on the landing page of Thrive. Tips to survive web dev bootcamp.')
-    CliStart.alex_say('This landing page features a picture of a tree composed out of different characters such as brackets. The tree has many branches, leaves, roots and appears strong and well-grounded.')
   end
 
   ### Enabled here, as a class method - to be called anywhere ###
@@ -52,7 +50,7 @@ class CommandLineInterfaceA
     CliStart.sam_say('That name does not match our records')
     CliStart.sam_say('Select top option to try again and bottom option to go back to the homepage')
     system 'clear'
-    self.logo_art
+    self.logo_art_a
     prompt = TTY::Prompt.new
     nav = prompt.select('', %w(Retry? Back))
     if nav == "Retry?"
@@ -95,8 +93,8 @@ class CommandLineInterfaceA
     system 'clear'
     puts "\n"
     puts "Username: " + username_query
-    CliStart.sam_say('Your username is #{username_query}')
-    CliStart.sam_say('Please write your password')
+    CliStart.sam_say("Your username is #{username_query}")
+    CliStart.sam_say("Please write your password")
     prompt = TTY::Prompt.new
     heart = prompt.decorate('❤ ', :red)
     password_query = prompt.mask("Password:", mask: heart).downcase
@@ -146,6 +144,27 @@ class CommandLineInterfaceA
   def self.landing_page_a
     system 'clear'
     self.logo_art_a
+    CliStart.sam_say('You are now back on the landing page.')
+    CliStart.sam_say('What would you like to do?')
+    CliStart.sam_say('Use arrows to choose first option to create an account, second option to login and third to exit the app.')
+    prompt = TTY::Prompt.new
+    nav = prompt.select("\nWhat would you like to do?", %w(Create Login Exit))
+    if nav == "Create"
+      new_user = User.create_a_user_a
+      temp_home_page_a(new_user)
+    elsif nav == "Login"
+      self.log_in_name_a
+    elsif nav == "Exit"
+      CommandLineInterfaceA.exit_a
+    end
+  end
+
+  #################### Main App Landing Page ####################
+  def self.first_landing_page_a
+    system 'clear'
+    self.logo_art_a
+    CliStart.sam_say('You are now on the landing page of Thrive. Tips to survive web dev bootcamp.')
+    CliStart.alex_say('This landing page features a picture of a tree composed out of different keyboard characters and symbols. The tree has many branches, leaves, roots and appears strong and well-grounded.')
     CliStart.sam_say('What would you like to do?')
     CliStart.sam_say('Use arrows to choose first option to create an account, second option to login and third to exit the app.')
     prompt = TTY::Prompt.new

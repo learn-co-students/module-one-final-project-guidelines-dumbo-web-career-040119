@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_many :directories
   has_many :tips, through: :directories
 
+  ############################## Sign Up Methods ###############################
   def self.check_username_a(username)
     if all.map(&:name).include?(username)
       puts 'That username is taken'
@@ -14,7 +15,6 @@ class User < ActiveRecord::Base
   end
 
   def self.set_username_a
-    CliStart.sam_say("What is your username?")
     system 'clear'
     prompt = TTY::Prompt.new
     username = prompt.ask('What is your username?') do |q|
@@ -27,7 +27,6 @@ class User < ActiveRecord::Base
   def self.set_pw_page_a(username)
     system 'clear'
     puts 'What is your username? ' + username
-    CliStart.sam_say("Your username is #{username}")
   end
 
   def self.set_password_a
@@ -52,7 +51,7 @@ class User < ActiveRecord::Base
     prompt = TTY::Prompt.new
     heart = prompt.decorate('❤ ', :red)
     confirm = prompt.mask('Please confirm your password?', mask: heart)
-    # validate_pw_a(confirm, password, username)
+    validate_pw_a(confirm, password, username)
     password
   end
 
@@ -73,13 +72,15 @@ class User < ActiveRecord::Base
 
   def self.create_a_user_a
     CliStart.sam_say("What is your username?")
-    username = set_username
+    username = set_username_a
+    CliStart.sam_say("Your username is #{username}")
     password = confirm_password_a(username)
     CliStart.sam_say("What is your email?")
     email = set_email
     user_setup_a(username, password, email)
   end
 
+  ############################### Log In Methods ###############################
   def self.check_password_a(username_query, password_query)
     user = where('name = ?', username_query)
     if user[0].password == password_query
@@ -114,17 +115,20 @@ class User < ActiveRecord::Base
     end
   end
 
+  ###################### Save Tip, Label, and Comment ##########################
   def users_label_a
     CliStart.sam_say("How would you like to label this tip?")
     prompt = TTY::Prompt.new
-    users_label = prompt.ask("\nHow would you like to label this tip?")
+    puts "\n"
+    users_label_a = prompt.ask("How would you like to label this tip?")
     users_label_a
   end
 
   def users_comment_a
-    CliStart.sam_say("Is there any comment you'd like to add for youself?")
+    CliStart.sam_say("Is there any comment you would like to add for yourself?")
     prompt = TTY::Prompt.new
-    users_comment = prompt.ask("\nIs there any comment you'd like to add for youself?")
+    puts "\n"
+    users_comment_a = prompt.ask("Is there any comment you would like to add for yourself?")
     users_comment_a
   end
 
@@ -153,8 +157,8 @@ class User < ActiveRecord::Base
   end
 
   def save_tip_a(tip)
-    label = users_label
-    comment = users_comment
+    label = users_label_a
+    comment = users_comment_a
     Directory.create(user_id: id, tip_id: tip.id, label: label, comment: comment)
     puts 'Your tip has been saved 👍'
     CliStart.sam_say("Your tip has been saved. Yay!")
@@ -185,6 +189,7 @@ class User < ActiveRecord::Base
     end
   end
 
+  ############################ Navigation Methods ##############################
   def chosen_tip_a(tip, nav)
     if tip == nil
       return
@@ -198,6 +203,7 @@ class User < ActiveRecord::Base
     if tip.url != nil
       url = tip.url.gsub(/'s/, ' is').gsub(/\n/, '')
     end
+    puts "[audio announcement playing, text will proceed]"
     CliStart.sam_say("Here is the tips title: #{name}")
     CliStart.sam_say("Here is the tips content: #{content}")
     CliStart.sam_say("You can read more here: #{url}")
@@ -354,8 +360,13 @@ class User < ActiveRecord::Base
     labels = get_user_labels_a(self)
     return if labels == nil
     labels.push('Back')
-    CliStart.sam_say("These are your saved labels: #{choices}")
-    nav = prompt.select('These are your saved labels', labels)
+    counter = 0
+    CliStart.sam_say("These are your saved labels")
+    labels.each do |label|
+      label = label.gsub(/'s/, 'is').gsub(/\n/, '')
+      CliStart.sam_say("#{counter += 1}. #{label}")
+    end
+    nav = prompt.select('These are your saved labels:', labels)
 
     if nav == 'Back'
       CommandLineInterfaceA.user_home_page_a(self)
@@ -369,7 +380,6 @@ class User < ActiveRecord::Base
       choices = the_labels.map do |user_dir|
         tip = Tip.where('id = ?', user_dir.tip_id)[0]
         content = tip.content
-        "#{counter += 1}. #{tip.content}"
         CliStart.sam_say("#{counter += 1}. #{content}")
       end
 

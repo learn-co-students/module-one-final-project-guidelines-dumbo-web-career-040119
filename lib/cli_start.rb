@@ -26,7 +26,7 @@ def self.choosing
   choices = ["Audio on", "Audio off"]
   nav = prompt.select('Please choose 1 for "audio on" and 2 for "audio off".', choices)
   if nav == "Audio on"
-    CommandLineInterfaceA.landing_page_a
+    CommandLineInterfaceA.first_landing_page_a
   else
     CommandLineInterface.landing_page
   end
