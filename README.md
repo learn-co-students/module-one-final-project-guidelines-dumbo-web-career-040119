@@ -1,59 +1,76 @@
-# Module One Final Project Guidelines
+### THRIVE
 
-Congratulations, you're at the end of module one! You've worked crazy hard to get here and have learned a ton.
+An interactive CLI guide on how to survive web dev bootcamps, based on data collected from scraped websites, as well as API's, and our own personal entries.
 
-For your final project, we'll be building a Command Line database application.
+It consists of multiple pages with unique information, images, animations and an option for audio description and audio guidance for accessibility.
 
-## Project Requirements
+It was developed as a Flatiron School’s mod1 group project to demonstrate the knowledge of Active Record Associations, as well as CRUD methods, and database management. 
 
-### Option One - Data Analytics Project
 
-1. Access a Sqlite3 Database using ActiveRecord.
-2. You should have at minimum three models including one join model. This means you must have a many-to-many relationship.
-3. You should seed your database using data that you collect either from a CSV, a website by scraping, or an API.
-4. Your models should have methods that answer interesting questions about the data. For example, if you've collected info about movie reviews, what is the most popular movie? What movie has the most reviews?
-5. You should provide a CLI to display the return values of your interesting methods.  
-6. Use good OO design patterns. You should have separate classes for your models and CLI interface.
+### Getting Started
+Clone this project into your local machine and follow the instructions below.
 
-  **Resource:** [Easy Access APIs](https://github.com/learn-co-curriculum/easy-access-apis)
+Installing
+After cloning the project folder onto your local machine, take the following steps:
 
-### Option Two - Command Line CRUD App
+Install the gems required for the guide by running the following command from the project folder.
 
-1. Access a Sqlite3 Database using ActiveRecord.
-2. You should have a minimum of three models.
-3. You should build out a CLI to give your user full CRUD ability for at least one of your resources. For example, build out a command line To-Do list. A user should be able to create a new to-do, see all todos, update a todo item, and delete a todo. Todos can be grouped into categories, so that a to-do has many categories and categories have many to-dos.
-4. Use good OO design patterns. You should have separate models for your runner and CLI interface.
+bundle install
+Create the necessary tables by running migrations.
 
-### Brainstorming and Proposing a Project Idea
+rake db:migrate
+Seed the database with the information needed to run the app (this may take a while).
 
-Projects need to be approved prior to launching into them, so take some time to brainstorm project options that will fulfill the requirements above.  You must have a minimum of four [user stories](https://en.wikipedia.org/wiki/User_story) to help explain how a user will interact with your app.  A user story should follow the general structure of `"As a <role>, I want <goal/desire> so that <benefit>"`. In example, if we were creating an app to randomly choose nearby restaurants on Yelp, we might write:
+rake db:seed
+To start, run the following command from you project folder.
 
-* As a user, I want to be able to enter my name to retrieve my records
-* As a user, I want to enter a location and be given a random nearby restaurant suggestion
-* As a user, I should be able to reject a suggestion and not see that restaurant suggestion again
-* As a user, I want to be able to save to and retrieve a list of favorite restaurant suggestions
+Ruby bin/run.rb
 
-## Instructions
 
-1. Fork and clone this repository.
-2. Build your application. Make sure to commit early and commit often. Commit messages should be meaningful (clearly describe what you're doing in the commit) and accurate (there should be nothing in the commit that doesn't match the description in the commit message). Good rule of thumb is to commit every 3-7 mins of actual coding time. Most of your commits should have under 15 lines of code and a 2 line commit is perfectly acceptable.
-3. Make sure to create a good README.md with a short description, install instructions, a contributors guide and a link to the license for your code.
-4. Make sure your project checks off each of the above requirements.
-5. Prepare a video demo (narration helps!) describing how a user would interact with your working project.
-    * The video should:
-      - Have an overview of your project.(2 minutes max)
-6. Prepare a presentation to follow your video.(3 minutes max)
-    * Your presentation should:
-      - Describe something you struggled to build, and show us how you ultimately implemented it in your code.
-      - Discuss 3 things you learned in the process of working on this project.
-      - Address, if anything, what you would change or add to what you have today?
-      - Present any code you would like to highlight.   
-7. *OPTIONAL, BUT RECOMMENDED*: Write a blog post about the project and process.
+### Navigation of CLI
 
----
-### Common Questions:
-- How do I turn off my SQL logger?
-```ruby
-# in config/environment.rb add this line:
-ActiveRecord::Base.logger = nil
-```
+Welcome page (select audio on/off option)
+
+Open Home Page
+
+Create a user login
+
+Read tips from database and save them with a label and a comment
+
+Search Google for more info
+
+Take part in various exercises and explore the app
+
+Update your tip directory by label
+
+Delete a tip directory
+
+Exit
+
+############################################################################
+
+### Built with
+
+ Meetup API
+ Quotes REST API
+'formatador' - styling output information into a neat table
+'artii' - creating text banners
+'Colorize' - enabling text coloring
+'lolcat' - enabling rainbow text coloring
+'sinatra-activerecord'
+'sqlite3'
+'require_all'
+'pry'
+'json'
+'Faker' - autogenerating fake seed data
+'tty-prompt' - enabling beautiful and easy option selection and user input
+'nokogiri' - web scraping
+'rest-client' - API calls
+
+######################################
+
+Contributing
+Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
+
+Authors
+See the list of contributors who participated in this project.
