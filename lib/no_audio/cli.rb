@@ -3,7 +3,7 @@ require 'artii'
 require 'lolcat'
 
 class CommandLineInterface
-  ##################  This is just for fun  #####################
+  #########################  This is just for fun  #############################
   def self.logo_art
     # logo = puts "//".colorize(:cyan) + " ♥".colorize(:red)
     art = puts <<-'EOF'
@@ -35,7 +35,8 @@ class CommandLineInterface
     puts art
   end
 
-  ### Enabled here, as a class method - to be called anywhere ###
+
+  ################################ Exit method #################################
   def self.exit
     puts "\n❤  Come back soon ❤\n"
     sleep 3/2
@@ -43,7 +44,16 @@ class CommandLineInterface
   end
 
 
-  ############# Next 4 methods pertain to login #################
+  ############################## Sign Up Method ################################
+  def user_setup(username, password, email)
+    user = User.create(name: username, password: password, email: email)
+    puts "Your username is #{username} and email is #{email}."
+    sleep 3 / 2
+    user
+  end
+
+
+  #################### Next 4 methods pertain to login #########################
   def self.fail_name_check
     puts "That name does not match our records"
     sleep 2
@@ -75,11 +85,12 @@ class CommandLineInterface
     puts "\n"
     prompt = TTY::Prompt.new
     username_query = prompt.ask("Username:")
+    log_in = SignUpAndLogIn.new
     if username_query == 'nil'
-      User.name_fail
+      log_in.name_fail
     else
       username_query = username_query.downcase
-      User.check_name(username_query)
+      log_in.check_name(username_query)
     end
   end
 
@@ -91,11 +102,12 @@ class CommandLineInterface
     prompt = TTY::Prompt.new
     heart = prompt.decorate('❤ ', :red)
     password_query = prompt.mask("Password:", mask: heart).downcase
-    User.check_password(username_query, password_query)
+    log_in = SignUpAndLogIn.new
+    log_in.check_password(username_query, password_query)
   end
 
 
-  ##################### Main User Home Page #####################
+  ############################ Main User Home Page #############################
   def self.user_home_page(user)
     prompt = TTY::Prompt.new
     system 'clear'
@@ -112,7 +124,7 @@ class CommandLineInterface
   end
 
 
-  ################ Home Page Upon Signup & Login ################
+  ####################### Home Page Upon Signup & Login ########################
   def self.temp_home_page(user)
     prompt = TTY::Prompt.new
     system 'clear'
@@ -130,7 +142,7 @@ class CommandLineInterface
   end
 
 
-  #################### Main App Landing Page ####################
+  ########################### Main App Landing Page ############################
   def self.landing_page
     system 'clear'
     self.logo_art
@@ -138,7 +150,8 @@ class CommandLineInterface
     prompt = TTY::Prompt.new
     nav = prompt.select("\nWhat would you like to do?", %w(Create Login Exit))
     if nav == "Create"
-      new_user = User.create_a_user
+      sign_up = SignUpAndLogIn.new
+      new_user = sign_up.create_a_user
       temp_home_page(new_user)
     elsif nav == "Login"
       self.log_in_name
@@ -146,4 +159,5 @@ class CommandLineInterface
       CommandLineInterface.exit
     end
   end
+  
 end

@@ -2,173 +2,7 @@ class User < ActiveRecord::Base
   has_many :directories
   has_many :tips, through: :directories
 
-  ############################## Sign Up Methods ###############################
-  def self.check_username(username)
-    if all.map(&:name).include?(username)
-      puts 'That username is taken'
-      sleep 5 / 2
-      set_username
-    else
-      username
-    end
-  end
-
-  def self.set_username
-    system 'clear'
-    prompt = TTY::Prompt.new
-    username = prompt.ask('What is your username?') do |q|
-      q.required true
-    end
-    username = username.downcase
-    check_username(username)
-  end
-
-  def self.set_pw_page(username)
-    system 'clear'
-    puts 'What is your username? ' + username
-  end
-
-  def self.set_password
-    prompt = TTY::Prompt.new
-    heart = prompt.decorate('❤ ', :red)
-    prompt.mask('What is your password?', mask: heart)
-  end
-
-  def self.validate_pw(confirm, password, username)
-    if confirm != password
-      puts('Your passwords do not match.')
-      sleep 3 / 2
-      confirm_password(username)
-    end
-  end
-
-  def self.confirm_password(username)
-    set_pw_page(username)
-    password = set_password
-    prompt = TTY::Prompt.new
-    heart = prompt.decorate('❤ ', :red)
-    confirm = prompt.mask('Please confirm your password?', mask: heart)
-    validate_pw(confirm, password, username)
-    password
-  end
-
-  def self.set_email
-    prompt = TTY::Prompt.new
-    prompt.ask('What is your email?') do |q|
-      q.validate(/\A\w+@\w+\.\w+\Z/) # copied from TTY prompt documentation
-      q.messages[:valid?] = 'Invalid email address'
-    end
-  end
-
-  def self.user_setup(username, password, email)
-    user = User.create(name: username, password: password, email: email)
-    puts "Your username is #{username} and email is #{email}."
-    sleep 3 / 2
-    user
-  end
-
-  def self.create_a_user
-    username = set_username
-    password = confirm_password(username)
-    email = set_email
-    user_setup(username, password, email)
-  end
-
-  ############################### Log In Methods ###############################
-  def self.check_password(username_query, password_query)
-    user = where('name = ?', username_query)
-    if user[0].password == password_query
-      user = user[0]
-      CommandLineInterface.temp_home_page(user)
-    else
-      CommandLineInterface.fail_pw_check(username_query)
-    end
-  end
-
-  def self.check_name(username_query)
-    if User.all.map(&:name).include?(username_query)
-      CommandLineInterface.log_in_pw(username_query)
-    else
-      CommandLineInterface.fail_name_check
-    end
-  end
-
-  def self.name_fail
-    puts 'That username does not match our records'
-  end
-
-  def self.log_in(username_query, password_query)
-    if !User.all.map(&:name).include?(username_query.downcase)
-      self.name_fail
-    elsif !User.where('name = ?', username_query).map(&:password).include?(password_query)
-      puts 'Password is incorrect. Try again.'
-    else
-      User.select('name = ?', username_query && 'password = ?', password_query)
-    end
-  end
-
-  ###################### Save Tip, Label, and Comment ##########################
-  def users_label
-    prompt = TTY::Prompt.new
-    puts "\n"
-    prompt.ask("How would you like to label this tip?")
-  end
-
-  def users_comment
-    prompt = TTY::Prompt.new
-    puts "\n"
-    prompt.ask("Is there any comment you'd like to add for youself?")
-  end
-
-  def save_tip_from_search(new_tip)
-    prompt = TTY::Prompt.new
-    system 'clear'
-    puts "\n🔹  #{new_tip.name.to_s} 🔹"
-    puts "\n\n" + new_tip.content.to_s + "\n\n"
-    choices = ["Save the Tip", "Back", "Exit to Home Page"]
-    save_or_back = prompt.select('', choices)
-    if save_or_back == 'Save the Tip'
-      save_tip(new_tip)
-      RubyTips.ask_to_exit(self)
-    elsif save_or_back == 'Back'
-      RubyTips.ask_to_exit(self)
-    else
-      CommandLineInterface.user_home_page(self)
-    end
-  end
-
-  def save_tip(tip)
-    label = users_label
-    comment = users_comment
-    Directory.create(user_id: id, tip_id: tip.id, label: label, comment: comment)
-    puts 'Your tip has been saved 👍'
-    sleep 3 / 2
-  end
-
-  def save_or_back(tip, nav)
-    prompt = TTY::Prompt.new
-    choices = ["Save the Tip", "Back"]
-    choice = prompt.select('', choices)
-    save_tip(tip) if choice == 'Save the Tip'
-    category_tips(nav)
-  end
-
-  def save_or_back_or_read(tip, nav)
-    prompt = TTY::Prompt.new
-    choices = ["Save the Tip", "Search the Web", "Back"]
-    choice = prompt.select('', choices)
-    if choice == 'Save the Tip'
-      save_tip(tip)
-      save_or_back_or_read(tip, nav)
-    elsif choice == 'Search the Web'
-      system("open -a Safari #{tip.url}")
-      save_or_back_or_read(tip, nav)
-    else
-      category_tips(nav)
-    end
-  end
-
-  ############################ Navigation Methods ##############################
+  ########################## Tip Navigation Methods ############################
   def chosen_tip(tip, nav)
     if tip == nil
       return
@@ -180,9 +14,9 @@ class User < ActiveRecord::Base
       puts "\nHere's how to do that: " + tip.how_to
     end
     if tip.url == nil
-      save_or_back(tip, nav)
+      tip.save_or_back(self, nav)
     else
-      save_or_back_or_read(tip, nav)
+      tip.save_or_back_or_read(self, nav)
     end
   end
 
@@ -193,11 +27,7 @@ class User < ActiveRecord::Base
     Tip.where('name = ?', choice)
   end
 
-  def category_tips(nav)
-    prompt = TTY::Prompt.new
-    all_tips = Tip.where('category = ?', nav)
-    no_user_tips = all_tips.where('user_created = ?', false)
-    choices = no_user_tips.map { |tip| "#{tip.name}" }
+  def shorten_category(choices)
     if choices.length > 7
       choices.shuffle!
       choices = choices.slice(0, 7)
@@ -207,9 +37,23 @@ class User < ActiveRecord::Base
     else
       choices.last.insert(-1, "\n")
     end
+    choices
+  end
+
+  def fetch_category_choices(nav)
+    all_tips = Tip.where('category = ?', nav)
+    no_user_tips = all_tips.where('user_created = ?', false)
+    choices = no_user_tips.map { |tip| "#{tip.name}" }
+    choices = shorten_category(choices)
     choices.push('Back')
     choices.push('Exit to Home Page')
+    choices
+  end
+
+  def category_tips(nav)
+    prompt = TTY::Prompt.new
     system 'clear'
+    choices = fetch_category_choices(nav)
     choice = prompt.select("Choose a tip.\n", choices, per_page: 10)
     if choice == 'Back'
       self.category_search_page
@@ -223,6 +67,23 @@ class User < ActiveRecord::Base
     end
   end
 
+  def select_a_tip
+    tip = category_search_page
+    if tip == nil
+      return
+    end
+    system 'clear'
+    if tip != nil
+      tip.map do |tip|
+        puts tip.name
+        puts tip.content
+      end
+    end
+    chosen_tip(tip[0])
+  end
+
+
+  ####################### Main Category Navigation Page ########################
   def category_search_page
     system 'clear'
     CatPageArt.display
@@ -242,21 +103,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def select_a_tip
-    tip = category_search_page
-    if tip == nil
-      return
-    end
-    system 'clear'
-    if tip != nil
-      tip.map do |tip|
-        puts tip.name
-        puts tip.content
-      end
-    end
-    chosen_tip(tip[0])
-  end
 
+  ########################## No Saved Tips Animation ###########################
   def empty_directory
     puts "\n              Uh-oh...\n\n"
     puts '─────────▄▄───────────────────▄▄──'
@@ -295,16 +143,16 @@ class User < ActiveRecord::Base
     puts "\n Looks like you haven't saved any tips yet!"
   end
 
+
+  ############################# User Saved Tips ################################
   def get_user_labels(user)
     counter = 0
     all_users_tips = Directory.where('user_id = ?', user.id)
     users_labels = all_users_tips.map(&:label).uniq
     output = users_labels.map { |label| "#{counter += 1}. #{label}" }
     if counter == 0
-      # Add an animation if ther are no saved tips#
       self.empty_directory
       puts 'You currently have no saved tips. Choose "More" to find new ones!'
-
       sleep 3
       CommandLineInterface.user_home_page(self)
     else
@@ -346,4 +194,5 @@ class User < ActiveRecord::Base
       dir[0].display_and_edit_tip(tip, self)
     end
   end
+
 end
