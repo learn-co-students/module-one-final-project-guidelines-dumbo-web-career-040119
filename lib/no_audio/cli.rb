@@ -71,9 +71,9 @@ class CommandLineInterface
 
   def self.log_in_name
     system 'clear'
-    prompt = TTY::Prompt.new
     self.logo_art
     puts "\n"
+    prompt = TTY::Prompt.new
     username_query = prompt.ask("Username:")
     if username_query == 'nil'
       User.name_fail

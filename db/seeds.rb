@@ -90,7 +90,6 @@ def wellness_tips
     new_tip.content = tip.css('p').text
     new_tip.category = "Wellness"
     new_tip.user_created = false
-    binding.pry
     new_tip.save!
   end
 

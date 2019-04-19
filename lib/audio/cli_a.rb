@@ -75,10 +75,10 @@ class CommandLineInterfaceA
 
   def self.log_in_name_a
     system 'clear'
-    prompt = TTY::Prompt.new
     self.logo_art_a
     puts "\n"
     CliStart.sam_say('What is your username?')
+    prompt = TTY::Prompt.new
     username_query = prompt.ask("Username:")
     if username_query == 'nil'
       User.name_fail_a
@@ -91,6 +91,7 @@ class CommandLineInterfaceA
 
   def self.log_in_pw_a(username_query)
     system 'clear'
+    self.logo_art_a
     puts "\n"
     puts "Username: " + username_query
     CliStart.sam_say("Your username is #{username_query}")

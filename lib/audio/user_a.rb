@@ -151,8 +151,7 @@ class User < ActiveRecord::Base
     elsif save_or_back == 'Back'
       RubyTips.ask_to_exit_a(self)
     else
-      CliStart.sam_say("You are on the Ruby category page. Use arrows to choose first option to see Ruby tips, second to go to Ruby's Fantastic Four, third to search the web for a Ruby question, and fourth to go back to the homepage.")
-      RubyTips.ruby_nav_a(self)
+      CommandLineInterfaceA.user_home_page_a(self)
     end
   end
 
@@ -223,6 +222,9 @@ class User < ActiveRecord::Base
   end
 
   def tip_result_a(choice)
+    if choice.include? "\n"
+      choice = choice.tr("\n", '')
+    end
     Tip.where('name = ?', choice)
   end
 
@@ -250,11 +252,16 @@ class User < ActiveRecord::Base
       CliStart.sam_say("#{counter +=1} #{choice}")
     end
     choice = prompt.select("Choose a tip.\n", choices, per_page: 5)
-    self.category_search_page_a if choice == 'Back'
-    self.category_tips_a(nav) if choice == 'See More'
-    CommandLineInterfaceA.user_home_page_a(self) if choice == 'Exit to Home Page'
-    tip = tip_result_a(choice)[0]
-    chosen_tip_a(tip, nav)
+    if choice == 'Back'
+      self.category_search_page_a
+    elsif choice == 'See More'
+      self.category_tips_a(nav)
+    elsif choice == 'Exit to Home Page'
+      CommandLineInterfaceA.user_home_page_a(self)
+    else
+      tip = tip_result_a(choice)[0]
+      chosen_tip_a(tip, nav)
+    end
   end
 
   def category_search_page_a

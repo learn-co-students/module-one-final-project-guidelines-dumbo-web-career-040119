@@ -34,7 +34,7 @@ class RubyTipsA
     elsif nav == "Back"
       ruby_nav_a(user)
     else
-      user.category_search_page_a
+      CommandLineInterfaceA.user_home_page_a(user)
     end
   end
 

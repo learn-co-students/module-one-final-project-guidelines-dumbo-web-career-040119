@@ -21,6 +21,17 @@ class Directory < ActiveRecord::Base
   end
 
 
+  def edit_comment_a(tip, user)
+    prompt = TTY::Prompt.new
+    CliStart.sam_say("What would you like to change your comment to? Please write a new comment.")
+    new_comment = prompt.ask("How would you like to change your comment?")
+    self.update(comment: new_comment)
+    puts "Your comment has been updated to #{new_comment}."
+    CliStart.sam_say("Your comment has been updated to #{new_comment}.")
+    display_and_edit_tip_a(tip, user)
+  end
+
+
   def delete_tip_a(tip, user)
     prompt = TTY::Prompt.new
     CliStart.sam_say("Are you sure? Choose top option for yes and bottom option for no.")
