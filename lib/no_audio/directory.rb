@@ -19,6 +19,15 @@ class Directory < ActiveRecord::Base
   end
 
 
+  def edit_comment(tip, user)
+    prompt = TTY::Prompt.new
+    new_comment = prompt.ask("How would you like to change your comment?")
+    self.update(comment: new_comment)
+    puts "Your comment has been updated to #{new_comment}."
+    display_and_edit_tip(tip, user)
+  end
+
+
   def delete_tip(tip, user)
     prompt = TTY::Prompt.new
     gets = prompt.select("Are you sure?", %w[Yes No])
@@ -36,10 +45,13 @@ class Directory < ActiveRecord::Base
     prompt = TTY::Prompt.new
     puts tip[0].name
     puts tip[0].content
-    nav = prompt.select(" ", %w[Edit Delete Back])
-    if nav == "Edit"
+    choices = ["Edit Label", "Edit Comment", "Delete Tip", "Back"]
+    nav = prompt.select("", choices)
+    if nav == "Edit Label"
       edit_label(tip, user)
-    elsif nav == "Delete"
+    elsif nav == "Edit Comment"
+      edit_comment(tip, user)
+    elsif nav == "Delete Tip"
       delete_tip(tip, user)
     else
       user.user_saved_tips

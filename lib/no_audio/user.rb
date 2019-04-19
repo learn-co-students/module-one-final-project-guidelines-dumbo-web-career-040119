@@ -133,7 +133,7 @@ class User < ActiveRecord::Base
     elsif save_or_back == 'Back'
       RubyTips.ask_to_exit(self)
     else
-      RubyTips.ruby_nav(self)
+      CommandLineInterface.user_home_page(self)
     end
   end
 
@@ -187,6 +187,9 @@ class User < ActiveRecord::Base
   end
 
   def tip_result(choice)
+    if choice.include? "\n"
+      choice = choice.tr("\n", '')
+    end
     Tip.where('name = ?', choice)
   end
 
@@ -210,15 +213,14 @@ class User < ActiveRecord::Base
     choice = prompt.select("Choose a tip.\n", choices, per_page: 10)
     if choice == 'Back'
       self.category_search_page
-    end
-    if choice == 'See More'
+    elsif choice == 'See More'
       self.category_tips(nav)
-    end
-    if choice == 'Exit to Home Page'
+    elsif choice == 'Exit to Home Page'
       CommandLineInterface.user_home_page(self)
+    else
+      tip = tip_result(choice)[0]
+      chosen_tip(tip, nav)
     end
-    tip = tip_result(choice)[0]
-    chosen_tip(tip, nav)
   end
 
   def category_search_page

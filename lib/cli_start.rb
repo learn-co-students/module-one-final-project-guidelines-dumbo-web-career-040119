@@ -26,7 +26,7 @@ def self.choosing
   puts "An app to help you go through a coding bootcamp. Would you like audio on or off?"
 	puts "\n"
   choices = ["Audio on", "Audio off"]
-  nav = prompt.select('Please choose 1 for "audio on" and 2 for "audio off".', choices)
+  nav = prompt.select('Please choose 1 for "audio on" and 2 for "audio off".' + "\n", choices)
   if nav == "Audio on"
     CommandLineInterfaceA.first_landing_page_a
   else

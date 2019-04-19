@@ -116,7 +116,6 @@ class CommandLineInterface
   def self.temp_home_page(user)
     prompt = TTY::Prompt.new
     system 'clear'
-    puts "\n"
     self.logo_art
     puts "Hello"
     choices = ["More Tips", "Saved Tips", "Logout"]
@@ -134,7 +133,6 @@ class CommandLineInterface
   #################### Main App Landing Page ####################
   def self.landing_page
     system 'clear'
-    puts "\n"
     self.logo_art
     puts "Welcome to Thrive"
     prompt = TTY::Prompt.new

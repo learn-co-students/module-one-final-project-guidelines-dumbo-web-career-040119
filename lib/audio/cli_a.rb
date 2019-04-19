@@ -143,7 +143,6 @@ class CommandLineInterfaceA
   #################### Main App Landing Page ####################
   def self.landing_page_a
     system 'clear'
-    puts "\n"
     self.logo_art_a
     CliStart.sam_say('You are now back on the landing page.')
     CliStart.sam_say('What would you like to do?')
@@ -163,7 +162,6 @@ class CommandLineInterfaceA
   #################### Main App Landing Page ####################
   def self.first_landing_page_a
     system 'clear'
-    puts "\n"
     self.logo_art_a
     CliStart.sam_say('You are now on the landing page of Thrive. Tips to survive web dev bootcamp.')
     CliStart.alex_say('This landing page features a picture of a tree composed out of different keyboard characters and symbols. The tree has many branches, leaves, roots and appears strong and well-grounded.')

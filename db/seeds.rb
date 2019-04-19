@@ -88,10 +88,19 @@ def wellness_tips
     new_tip = Tip.create() #create a new Tip instance
     new_tip.name = tip.css('h4').text
     new_tip.content = tip.css('p').text
-    new_tip.url = links.css('a').attr('href').text
     new_tip.category = "Wellness"
     new_tip.user_created = false
+    binding.pry
     new_tip.save!
+  end
+
+  first_name = tips.first.css('h4').text
+  first_new_tip = Tip.where('name = ?', first_name).first
+  first_number = first_new_tip.id-1
+
+  links.map.with_index(first_number) do |link, index|
+    iterated_new_tip = Tip.where('id = ?', first_number+=1)
+    iterated_new_tip[0].update(url: link.css('a').attr('href').text)
   end
 
   Tip.destroy_all(name: "")
