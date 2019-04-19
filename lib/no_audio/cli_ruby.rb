@@ -19,7 +19,7 @@ class RubyTips
     new_tip.url = junk_url.split('?q=')[1].split('&sa=')[0]
 
     new_tip.save!
-    user.save_tip_from_search(new_tip)
+    new_tip.save_tip_from_search(user)
   end
 
 
@@ -35,6 +35,7 @@ class RubyTips
       CommandLineInterface.user_home_page(user)
     end
   end
+
 
   def self.ruby_nav(user)
     prompt = TTY::Prompt.new
