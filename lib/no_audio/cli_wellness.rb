@@ -28,7 +28,7 @@ require 'nokogiri'
       sleep 1
       puts "Follow our guidance."
       sleep 3
-      puts "\nYou'll inhale for 4 seconds through your nose, then you'll hold your breath for 7 seconds."
+      puts "\nYou'll inhale for 4 seconds through your nose.\nThen you'll hold your breath for 7 seconds."
       sleep 3
       puts "Finally, you'll exhale for 8 seconds through your mouth."
       sleep 5
