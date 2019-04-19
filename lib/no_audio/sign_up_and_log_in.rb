@@ -2,7 +2,7 @@ class SignUpAndLogIn
 
   ############################## Sign Up Methods ###############################
   def check_username(username)
-    if all.map(&:name).include?(username)
+    if User.all.map(&:name).include?(username)
       puts 'That username is taken'
       sleep 5 / 2
       set_username
@@ -62,7 +62,8 @@ class SignUpAndLogIn
     username = set_username
     password = confirm_password(username)
     email = set_email
-    CommandLineInterface.user_setup(username, password, email)
+    sign_up = CommandLineInterface.new
+    sign_up.user_setup(username, password, email)
   end
 
   ############################### Log In Methods ###############################
