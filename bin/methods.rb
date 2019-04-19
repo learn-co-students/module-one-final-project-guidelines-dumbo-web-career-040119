@@ -1,5 +1,4 @@
 require_relative '../config/environment'
-
 ##quarantine folder for methods under development and methods made obsolete
 
 
