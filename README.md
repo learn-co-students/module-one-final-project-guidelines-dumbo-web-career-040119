@@ -50,9 +50,6 @@ Delete a tip directory
 Exit
 
 
-
-
-
 #### Built with
 
  Meetup API
