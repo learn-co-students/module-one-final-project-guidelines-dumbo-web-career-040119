@@ -7,6 +7,7 @@ It consists of multiple pages with unique information, images, animations and an
 It was developed as a Flatiron School’s mod1 group project to demonstrate the knowledge of Active Record Associations, as well as CRUD methods, and database management. 
 
 
+
 ## Getting Started
 Clone this project into your local machine and follow the instructions below.
 
@@ -25,6 +26,7 @@ rake db:seed
 To start, run the following command from you project folder.
 
 Ruby bin/run.rb
+
 
 
 ## Navigation of CLI
@@ -47,7 +49,6 @@ Delete a tip directory
 
 Exit
 
-############################################################################
 
 #### Built with
 
@@ -67,10 +68,10 @@ Exit
 'nokogiri' - web scraping
 'rest-client' - API calls
 
-######################################
 
 #### Contributing
 Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
+
 
 #### Authors
 See the list of contributors who participated in this project.
