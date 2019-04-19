@@ -18,7 +18,6 @@ class SocialCliA
    /###################\    (__)
     EOF
     art
-    CliStart.alex_say("This page features a picture a computer composed out of different characters such as brackets. The computer screen shows the sign: make some friends.")
   end
 
   def self.output_a(meetup_api, results)
@@ -49,6 +48,7 @@ class SocialCliA
     meetup_api = JSON.parse(RestClient.get('https://api.meetup.com/2/concierge?key=2f673325f5b422527f3d7e1c683f&sign=true&photo-host=public&country=United States&city=New York City&category_id=34'))
     system 'clear'
     self.social_art_a
+    CliStart.alex_say("On the top of the page there is a picture of a computer composed out of different characters such as brackets. The computer screen shows the sign: make some friends.")
     results = meetup_api['results']
     CliStart.sam_say("Here is what's happening around you in tech")
     puts "\nHere's what's happening around you in tech:\n\n"
@@ -59,9 +59,11 @@ class SocialCliA
 
   def self.after_meetups_a(user)
     prompt = TTY::Prompt.new
-    nav = prompt.select('What do you want to do next?', %w[More Back])
+    nav = prompt.select('What do you want to do next?', %w[More Fun Back])
     if nav == 'More'
       self.random_meetup_a(user)
+    elsif nav == 'Fun'
+      BananaMan.go(user)
     else
       user.category_search_page_a
     end
