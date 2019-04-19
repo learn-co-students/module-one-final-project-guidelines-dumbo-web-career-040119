@@ -1,4 +1,4 @@
-### THRIVE
+# THRIVE
 
 An interactive CLI guide on how to survive web dev bootcamps, based on data collected from scraped websites, as well as API's, and our own personal entries.
 
@@ -7,7 +7,7 @@ It consists of multiple pages with unique information, images, animations and an
 It was developed as a Flatiron School’s mod1 group project to demonstrate the knowledge of Active Record Associations, as well as CRUD methods, and database management. 
 
 
-### Getting Started
+## Getting Started
 Clone this project into your local machine and follow the instructions below.
 
 Installing
@@ -27,7 +27,7 @@ To start, run the following command from you project folder.
 Ruby bin/run.rb
 
 
-### Navigation of CLI
+## Navigation of CLI
 
 Welcome page (select audio on/off option)
 
@@ -49,7 +49,7 @@ Exit
 
 ############################################################################
 
-### Built with
+#### Built with
 
  Meetup API
  Quotes REST API
@@ -69,8 +69,8 @@ Exit
 
 ######################################
 
-Contributing
+#### Contributing
 Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
 
-Authors
+#### Authors
 See the list of contributors who participated in this project.
