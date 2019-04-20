@@ -76,36 +76,39 @@ class WellnessCliA
   ############################# QUOTES ############################################################
 
   def self.get_inspirational_quote_a(user)
+    system 'clear'
     inspiration_api = JSON.parse(RestClient.get("http://quotes.rest/qod.json?category=inspire"))
     quote = inspiration_api["contents"]["quotes"][0]["quote"]
     author = inspiration_api["contents"]["quotes"][0]["author"]
     puts "\n\n                                 🔹 🔹 🔹                                       \n\n"
-    printed_quote = "Here is your inspirational quote for today: \n\n '#{quote}'" +  "\n\n                               (#{author})"
+    puts "Here is your inspirational quote for today: \n\n '#{quote}'" +  "\n\n                               (#{author})"
     puts "\n\n                                 🔹 🔹 🔹                                       \n\n"
     CliStart.sam_say("Here is your inspirational quote for today by #{author}: #{quote}")
     CliStart.sam_say("Use the down arrow key and enter to go back to Wellness Category")
     prompt = TTY::Prompt.new
-    nav = prompt.select(printed_quote, %w(Back))
+    nav = prompt.select('', %w(Back))
     if nav == "Back"
-      WellnessCliA.go_a(user)
+      WellnessCli.go(user)
     end
   end
 
 
   def self.get_management_quote_a(user)
     # binding.pry
+    system 'clear'
     management_api = JSON.parse(RestClient.get("http://quotes.rest/qod.json?category=management"))
     quote = management_api["contents"]["quotes"][0]["quote"]
     author = management_api["contents"]["quotes"][0]["author"]
     puts "\n\n                                 🔹 🔹 🔹                                       \n\n"
-    printed_quote = "Here is your management quote for today: \n\n '#{quote}'" +  "\n                            (#{author})"
+    puts "Here is your management quote for today: \n\n '#{quote}'" +  "\n                            (#{author})"
     puts "\n\n                                 🔹 🔹 🔹                                       \n\n"
-    CliStart.sam_say("Here is your management quote for today by #{author}: #{quote}")
+    quote_accessible = quote.to_s.gsub(/'s/, ' is').gsub(/\n/, '')
+    CliStart.sam_say("Here is your management quote for today by #{author}: #{quote_accessible}")
     CliStart.sam_say("Use the down arrow key and enter to go back to Wellness Category")
     prompt = TTY::Prompt.new
-    nav = prompt.select(printed_quote, %w(Back))
+    nav = prompt.select('', %w(Back))
     if nav == "Back"
-      WellnessCliA.go_a(user)
+      WellnessCli.go(user)
     end
   end
 
