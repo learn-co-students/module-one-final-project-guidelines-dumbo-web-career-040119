@@ -47,7 +47,7 @@ class RubyTipsA
     if nav == 'Tips'
       user.category_tips_a('Ruby')
     elsif nav == "Fantastic Four"
-      RubysFantasticFourA.go(user)
+      RubysFantasticFourA.go_a(user)
     elsif nav == 'Search the Web'
       google_search_a(user)
     else

@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
     CliStart.sam_say("Your username is #{username}")
     password = confirm_password_a(username)
     CliStart.sam_say("What is your email?")
-    email = set_email
+    email = set_email_a
     user_setup_a(username, password, email)
   end
 
@@ -147,9 +147,9 @@ class User < ActiveRecord::Base
     save_or_back = prompt.select('', choices)
     if save_or_back == 'Save the Tip'
       save_tip_a(new_tip)
-      RubyTips.ask_to_exit_a(self)
+      RubyTipsA.ask_to_exit_a(self)
     elsif save_or_back == 'Back'
-      RubyTips.ask_to_exit_a(self)
+      RubyTipsA.ask_to_exit_a(self)
     else
       CommandLineInterfaceA.user_home_page_a(self)
     end
@@ -336,8 +336,8 @@ class User < ActiveRecord::Base
     puts  '──────────────────────────────────'
     sleep 0.06
     puts  '──────────────────────────────────'
-    puts "\n Looks like you haven't saved any tips yet!"
-    CliStart.sam_say("Looks like you haven't saved any tips yet!")
+    puts "\nLooks like you haven't saved any tips yet!"
+    CliStart.sam_say("Looks like you have not saved any tips yet!")
     sleep (0.5)
     CliStart.alex_say("This page features a picture of confused face composed out of different characters such as brackets.")
     sleep (0.5)
