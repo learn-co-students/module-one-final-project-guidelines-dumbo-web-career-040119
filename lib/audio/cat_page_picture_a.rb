@@ -1,4 +1,5 @@
 class CatPageArtA
+
   def pic_one_a
     art = puts <<-'EOF'
 
