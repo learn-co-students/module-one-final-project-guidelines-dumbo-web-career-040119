@@ -17,7 +17,7 @@ def self.welcome
   puts "Welcome to Thrive. [audio announcement playing, text will proceed]"
   self.sam_say('Welcome to Thrive. An app to help you go through a coding bootcamp. Would you like audio on or off?')
   sleep (0.03)
-  self.sam_say('Please choose the top option for audio on. And bottom option for audio off.')
+  self.sam_say('Please choose the top option for no audio. And the bottom option for audio on.')
   self.choosing
 end
 
@@ -25,8 +25,8 @@ def self.choosing
   prompt = TTY::Prompt.new
   puts "An app to help you go through a coding bootcamp. Would you like audio on or off?"
 	puts "\n"
-  choices = ["Audio on", "Audio off"]
-  nav = prompt.select('Please choose 1 for "audio on" and 2 for "audio off".' + "\n", choices)
+  choices = ["no Audio", "Audio on"]
+  nav = prompt.select('Please choose 1 for "no audio" and 2 for "audio on".' + "\n", choices)
   if nav == "Audio on"
     CommandLineInterfaceA.first_landing_page_a
   else
