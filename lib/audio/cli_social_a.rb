@@ -50,10 +50,21 @@ class SocialCliA
     self.social_art_a
     CliStart.alex_say("On the top of the page there is a picture of a computer composed out of different characters such as brackets. The computer screen shows the sign: make some friends.")
     results = meetup_api['results']
-    CliStart.sam_say("Here is what's happening around you in tech")
+    CliStart.sam_say("Here is what is happening around you in tech")
     puts "\nHere's what's happening around you in tech:\n\n"
     self.output_a(meetup_api, results)
-    CliStart.sam_say("What do you want to do next? Choose top option to see next meetup, the middle option for some fun, or the bottom option to go back to your homepage")
+    CliStart.sam_say("What do you want to do next? Choose top option to see next meetup and bottom one to go back to your homepage")
+    self.after_meetups_a(user)
+  end
+
+  def self.random_meetup_a_more(user)
+    meetup_api = JSON.parse(RestClient.get('https://api.meetup.com/2/concierge?key=2f673325f5b422527f3d7e1c683f&sign=true&photo-host=public&country=United States&city=New York City&category_id=34'))
+    system 'clear'
+    results = meetup_api['results']
+    CliStart.sam_say("Here is what is happening around you in tech")
+    puts "\nHere's what's happening around you in tech:\n\n"
+    self.output_a(meetup_api, results)
+    CliStart.sam_say("What do you want to do next? Choose top option to see next meetup, the middle option for a fun animation, or the bottom option to go back to your homepage")
     self.after_meetups_a(user)
   end
 

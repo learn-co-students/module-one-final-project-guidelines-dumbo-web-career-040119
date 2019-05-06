@@ -6,7 +6,7 @@ Tip.create(
   name: "Golden Rule",
   category: "Ruby",
   title: "Use pry, don’t cry.",
-  content: "Although pry may seem a little counter-intuitive ('why would I stop my process to use pry?!?'), it will save you a lot of trouble if you pry often.",
+  content: "Although pry may seem a little counter-intuitive (you may think: why would I stop my process to use pry?!?), it will save you a lot of trouble if you pry often.",
   how_to: "Remember to try pry outside a method and INSIDE as well if it does not work.",
   url: "https://tinyurl.com/y5cffgd5",
   user_created: "false"
@@ -18,7 +18,7 @@ Tip.create(
   title: "Errors are your friends.",
   url: "https://ruby-doc.org/core-2.2.0/Exception.html",
   content: "An error is nothing more than Ruby's version of open communication and constructive feedback. It tells you where it hurts!",
-  how_to: "\n Don’t freak out when you see the error. Just read it. And then again.\n Things to pay attention to:\n    - check the file name and the line number, like here:'./lib/ruby_tips.rb:9';\n    - check the error type, like here: '(NameError)';\n    - check both in your code and if that doesn't help - Google!",
+  how_to: "Do not freak out when you see the error. Just read it. And then again. Then check the file name and the line number, like here: ruby_tips.rb:9. Check the error type, like here: (NameError). Check both in your code and if that does not help - Google!",
   user_created: "false"
 )
 
@@ -52,7 +52,7 @@ Tip.create(
   name: "Floating around",
   category: "Ruby",
   title: "Remember to float when you do math.",
-  content: "If you're getting errors on your equations, try to float the integer.",
+  content: "If you are getting errors on your equations, try to float the integer.",
   how_to: ".to_f is the method!",
   url: "http://ruby.bastardsbook.com/chapters/numbers/",
   user_created: "false"
@@ -62,7 +62,7 @@ Tip.create(
   name: "Single Source of Truth",
   category: "Ruby",
   title: "I will tell the truth, the whole truth and nothing but the truth.",
-  content: "When designing your domain in OO Ruby, make sure that every piece of data is saved JUST ONCE in ONE place.\n Other places may use this data but it should live only in one place. Otherwise you'll spend hours debugging.",
+  content: "When designing your domain in OO Ruby, make sure that every piece of data is saved JUST ONCE in ONE place.\n Other places may use this data but it should live only in one place. Otherwise you will spend hours debugging.",
   how_to: "Use a whiteboard A LOT, mark all the relations and try to challenge your assumptions.",
   url: "https://tinyurl.com/y4wb2dc7",
   user_created: "false"
@@ -72,7 +72,7 @@ Tip.create(
   name: "Select vs map vs find vs each",
   category: "Ruby",
   title: "There is a method in this madness.",
-  content: "Sometimes it may be difficult to choose which of the Fantastic Four (map, select, find, each) to use.",
+  content: "Sometimes it may be difficult to choose which of the Fantastic Four methods (map, select, find, each) to use.",
   how_to: "1. Are you trying to choose a few elements out of an array? Select or map may be your best choice (see next steps).\n 1a. Do you have any kind of comparison (e.g. name == XYZ)? If so, you want to use select.\n 1b. If not or if you want to get a specific part of each given instance (e.g. show only names), then map.\n 2. Are you looking for the first thing that fulfills some condition? Go with find.\n 3. If any of the above satisfies you, if you are not getting the result you want to or if you are just lazy, resort to each (though remember that it shows poor character)",
   url: "https://tinyurl.com/y3ywcuob",
   user_created: "false"

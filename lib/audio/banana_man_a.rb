@@ -348,8 +348,8 @@ class BananaManA
 
   def self.go_a(user)
     system 'clear'
-    BananaManA.animation_a
     CliStart.alex_say("This page features a stop-motion animation of a dancing banana composed out of characters such as brackets. Please use the down arrow and enter to go back to the previous page.")
+    BananaManA.animation_a
     BananaManA.after_animation_a(user)
   end
 
