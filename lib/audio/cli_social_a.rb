@@ -53,7 +53,7 @@ class SocialCliA
     CliStart.sam_say("Here is what's happening around you in tech")
     puts "\nHere's what's happening around you in tech:\n\n"
     self.output_a(meetup_api, results)
-    CliStart.sam_say("What do you want to do next? Choose top option to see next meetup and bottom one to go back to your homepage")
+    CliStart.sam_say("What do you want to do next? Choose top option to see next meetup, the middle option for some fun, or the bottom option to go back to your homepage")
     self.after_meetups_a(user)
   end
 
@@ -63,7 +63,7 @@ class SocialCliA
     if nav == 'More'
       self.random_meetup_a(user)
     elsif nav == 'Fun'
-      BananaMan.go(user)
+      BananaManA.go_a(user)
     else
       user.category_search_page_a
     end
