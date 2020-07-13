@@ -1,0 +1,6 @@
+This program is intended to allow the user to sort through a preloaded database
+based on the information provided to it by prompts.
+
+In order to install, open terminal and move to this program's directory. Load
+the database by entering "rake db:seed" and then "ruby bin/ruby.rb". From there,
+follow the prompts to use.
