@@ -1,5 +1,3 @@
 require_relative '../config/environment'
 
-
-
-puts "HELLO WORLD"
+CommandLineInterface.landing_page
